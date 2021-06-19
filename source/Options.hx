@@ -707,6 +707,7 @@ class ResetSettings extends Option
 		FlxG.save.data.fpsRain = null;
 		FlxG.save.data.fpsCap = null;
 		FlxG.save.data.npsDisplay = null;
+		FlxG.save.data.healthDisplay = null;
 		FlxG.save.data.frames = null;
 		FlxG.save.data.accuracyMod = null;
 		FlxG.save.data.watermark = null;
