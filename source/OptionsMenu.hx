@@ -45,6 +45,7 @@ class OptionsMenu extends MusicBeatState
 			new RainbowFPSOption("Make the FPS Counter Rainbow"),
 			new AccuracyOption("Display accuracy information."),
 			new NPSDisplayOption("Shows your current Notes Per Second."),
+			new HealthDisplayOption("Shows your current Health."),
 			new SongPositionOption("Show the songs current position (as a bar)"),
 			new CpuStrums("CPU's strumline lights up when a note hits it."),
 			#end
@@ -58,6 +59,12 @@ class OptionsMenu extends MusicBeatState
 			new FlashingLightsOption("Toggle flashing lights that can cause epileptic seizures and strain."),
 			new WatermarkOption("Enable and disable all watermarks from the engine."),
 			new BotPlay("Showcase your charts and mods with autoplay.")
+		]),
+		
+		new OptionCategory("Manage Save Data", [
+			new ResetScoreOption("Reset your score on all songs and weeks."),
+			new LockWeeksOption("Reset your storymode progress. (only Tutorial + Week 1 will be unlocked)"),
+			new ResetSettings("Reset ALL your settings.")
 		])
 		
 	];

@@ -5,7 +5,10 @@ class KadeEngineData
 {
     public static function initSave()
     {
-        if (FlxG.save.data.newInput == null)
+        if (FlxG.save.data.weekUnlocked == null)
+			FlxG.save.data.weekUnlocked = 7;
+
+		if (FlxG.save.data.newInput == null)
 			FlxG.save.data.newInput = true;
 
 		if (FlxG.save.data.downscroll == null)
@@ -47,6 +50,9 @@ class KadeEngineData
 
 		if (FlxG.save.data.npsDisplay == null)
 			FlxG.save.data.npsDisplay = false;
+
+		if (FlxG.save.data.healthDisplay == null)
+			FlxG.save.data.healthDisplay = false;
 
 		if (FlxG.save.data.frames == null)
 			FlxG.save.data.frames = 10;
