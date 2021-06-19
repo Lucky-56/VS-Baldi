@@ -391,54 +391,6 @@ class FPSCapOption extends Option
 }
 
 
-class ScrollSpeedOption extends Option
-{
-	public function new(desc:String)
-	{
-		super();
-		description = desc;
-		acceptValues = true;
-	}
-
-	public override function press():Bool
-	{
-		return false;
-	}
-
-	private override function updateDisplay():String
-	{
-		return "Scroll Speed";
-	}
-
-	override function right():Bool {
-		FlxG.save.data.scrollSpeed += 0.1;
-
-		if (FlxG.save.data.scrollSpeed < 1)
-			FlxG.save.data.scrollSpeed = 1;
-
-		if (FlxG.save.data.scrollSpeed > 4)
-			FlxG.save.data.scrollSpeed = 4;
-		return true;
-	}
-
-	override function getValue():String {
-		return "Current Scroll Speed: " + HelperFunctions.truncateFloat(FlxG.save.data.scrollSpeed,1);
-	}
-
-	override function left():Bool {
-		FlxG.save.data.scrollSpeed -= 0.1;
-
-		if (FlxG.save.data.scrollSpeed < 1)
-			FlxG.save.data.scrollSpeed = 1;
-
-		if (FlxG.save.data.scrollSpeed > 4)
-			FlxG.save.data.scrollSpeed = 4;
-
-		return true;
-	}
-}
-
-
 class RainbowFPSOption extends Option
 {
 	public function new(desc:String)
@@ -754,7 +706,6 @@ class ResetSettings extends Option
 		FlxG.save.data.changedHit = null;
 		FlxG.save.data.fpsRain = null;
 		FlxG.save.data.fpsCap = null;
-		FlxG.save.data.scrollSpeed = null;
 		FlxG.save.data.npsDisplay = null;
 		FlxG.save.data.frames = null;
 		FlxG.save.data.accuracyMod = null;
