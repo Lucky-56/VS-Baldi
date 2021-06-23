@@ -27,7 +27,8 @@ class StoryMenuState extends MusicBeatState
 	{
 		return [
 			['Tutorial'],
-			['Senpai', 'Roses', 'Thorns']
+			['Senpai', 'Roses', 'Thorns'],
+			['Schooltime', 'Grades', 'Expulsion']
 		];
 	}
 	var curDifficulty:Int = 1;
@@ -36,12 +37,14 @@ class StoryMenuState extends MusicBeatState
 
 	var weekCharacters:Array<Dynamic> = [
 		['', 'bf', 'gf'],
-		['senpai', 'bf', 'gf']
+		['senpai', 'bf', 'gf'],
+		['', 'bf', 'gf']
 	];
 
 	var weekNames:Array<String> = [
 		"",
-		"Hating Simulator ft. Moawling"
+		"Hating Simulator ft. Moawling",
+		"Schooltime chaos"
 	];
 
 	var txtWeekTitle:FlxText;
