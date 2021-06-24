@@ -2,13 +2,13 @@
 <TextureAtlas imagePath="bully.png">
 	<!-- Art Created by Willow -->
 	<!-- XML Created by Lucky56 -->
-	<SubTexture name="Bully_Idle0000" x="0" y="0" width="121" height="158"/>
-	<SubTexture name="Bully_Left0000" x="122" y="0" width="117" height="161"/>
-	<SubTexture name="Bully_Left0001" x="123" y="0" width="117" height="161"/>
-	<SubTexture name="Bully_Down0000" x="0" y="162" width="111" height="156"/>
-	<SubTexture name="Bully_Down0001" x="0" y="163" width="111" height="156"/>
-	<SubTexture name="Bully_Up0000" x="112" y="162" width="111" height="162"/>
-	<SubTexture name="Bully_Up0001" x="112" y="161" width="111" height="162"/>
-	<SubTexture name="Bully_Right0000" x="240" y="0" width="108" height="161"/>
-	<SubTexture name="Bully_Right0001" x="241" y="0" width="108" height="161"/>
+	<SubTexture name="Bully_Idle0000" x="0" y="0" width="121" height="158" frameX="0" frameY="0" frameWidth="0" frameHeight="0"/>
+	<SubTexture name="Bully_Left0000" x="122" y="0" width="117" height="161" frameX="0" frameY="0" frameWidth="0" frameHeight="0"/>
+	<SubTexture name="Bully_Left0001" x="121" y="0" width="118" height="161" frameX="0" frameY="0" frameWidth="0" frameHeight="0"/>
+	<SubTexture name="Bully_Down0000" x="0" y="162" width="111" height="156" frameX="0" frameY="0" frameWidth="0" frameHeight="0"/>
+	<SubTexture name="Bully_Down0001" x="0" y="163" width="111" height="155" frameX="0" frameY="0" frameWidth="0" frameHeight="0"/>
+	<SubTexture name="Bully_Up0000" x="112" y="162" width="111" height="162" frameX="0" frameY="0" frameWidth="0" frameHeight="0"/>
+	<SubTexture name="Bully_Up0001" x="112" y="161" width="111" height="163" frameX="0" frameY="0" frameWidth="0" frameHeight="0"/>
+	<SubTexture name="Bully_Right0000" x="240" y="0" width="108" height="161" frameX="0" frameY="0" frameWidth="0" frameHeight="0"/>
+	<SubTexture name="Bully_Right0001" x="241" y="0" width="107" height="161" frameX="0" frameY="0" frameWidth="0" frameHeight="0"/>
 </TextureAtlas>

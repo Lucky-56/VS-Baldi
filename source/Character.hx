@@ -30,6 +30,7 @@ class Character extends FlxSprite
 
 		switch (curCharacter)
 		{
+			/*
 			case 'gf':
 				// GIRLFRIEND CODE
 				tex = Paths.getSparrowAtlas('characters/GF_assets');
@@ -105,22 +106,6 @@ class Character extends FlxSprite
 				addOffset('danceRight', 0);
 
 				playAnim('danceRight');
-
-			case 'gf-pixel':
-				tex = Paths.getSparrowAtlas('characters/gfPixel');
-				frames = tex;
-				animation.addByIndices('singUP', 'GF IDLE', [2], "", 24, false);
-				animation.addByIndices('danceLeft', 'GF IDLE', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
-				animation.addByIndices('danceRight', 'GF IDLE', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
-
-				addOffset('danceLeft', 0);
-				addOffset('danceRight', 0);
-
-				playAnim('danceRight');
-
-				setGraphicSize(Std.int(width * PlayState.daPixelZoom));
-				updateHitbox();
-				antialiasing = false;
 
 			case 'dad':
 				// DAD ANIMATION LOADING CODE
@@ -361,57 +346,6 @@ class Character extends FlxSprite
 				playAnim('idle');
 
 				flipX = true;
-			case 'bf-pixel':
-				frames = Paths.getSparrowAtlas('characters/bfPixel');
-				animation.addByPrefix('idle', 'BF IDLE', 24, false);
-				animation.addByPrefix('singUP', 'BF UP NOTE', 24, false);
-				animation.addByPrefix('singLEFT', 'BF LEFT NOTE', 24, false);
-				animation.addByPrefix('singRIGHT', 'BF RIGHT NOTE', 24, false);
-				animation.addByPrefix('singDOWN', 'BF DOWN NOTE', 24, false);
-				animation.addByPrefix('singUPmiss', 'BF UP MISS', 24, false);
-				animation.addByPrefix('singLEFTmiss', 'BF LEFT MISS', 24, false);
-				animation.addByPrefix('singRIGHTmiss', 'BF RIGHT MISS', 24, false);
-				animation.addByPrefix('singDOWNmiss', 'BF DOWN MISS', 24, false);
-
-				addOffset('idle');
-				addOffset("singUP");
-				addOffset("singRIGHT");
-				addOffset("singLEFT");
-				addOffset("singDOWN");
-				addOffset("singUPmiss");
-				addOffset("singRIGHTmiss");
-				addOffset("singLEFTmiss");
-				addOffset("singDOWNmiss");
-
-				setGraphicSize(Std.int(width * 6));
-				updateHitbox();
-
-				playAnim('idle');
-
-				width -= 100;
-				height -= 100;
-
-				antialiasing = false;
-
-				flipX = true;
-			case 'bf-pixel-dead':
-				frames = Paths.getSparrowAtlas('characters/bfPixelsDEAD');
-				animation.addByPrefix('singUP', "BF Dies pixel", 24, false);
-				animation.addByPrefix('firstDeath', "BF Dies pixel", 24, false);
-				animation.addByPrefix('deathLoop', "Retry Loop", 24, true);
-				animation.addByPrefix('deathConfirm', "RETRY CONFIRM", 24, false);
-				animation.play('firstDeath');
-
-				addOffset('firstDeath');
-				addOffset('deathLoop', -37);
-				addOffset('deathConfirm', -37);
-				playAnim('firstDeath');
-				// pixel bullshit
-				setGraphicSize(Std.int(width * 6));
-				updateHitbox();
-				antialiasing = false;
-				flipX = true;
-
 			case 'senpai':
 				frames = Paths.getSparrowAtlas('characters/senpai');
 				animation.addByPrefix('idle', 'Senpai Idle', 24, false);
@@ -498,6 +432,85 @@ class Character extends FlxSprite
 				addOffset("singDOWN-alt", -30, -27);
 
 				playAnim('idle');
+			*/
+			case 'gf-pixel':
+				tex = Paths.getSparrowAtlas('characters/gfPixel');
+				frames = tex;
+				animation.addByIndices('singUP', 'GF IDLE', [2], "", 24, false);
+				animation.addByIndices('danceLeft', 'GF IDLE', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
+				animation.addByIndices('danceRight', 'GF IDLE', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
+
+				addOffset('danceLeft', 0);
+				addOffset('danceRight', 0);
+
+				playAnim('danceRight');
+
+				setGraphicSize(Std.int(width * PlayState.daPixelZoom));
+				updateHitbox();
+				antialiasing = false;
+
+			case 'bf-pixel':
+				frames = Paths.getSparrowAtlas('characters/bfPixel');
+				animation.addByPrefix('idle', 'BF IDLE', 24, false);
+				animation.addByPrefix('singUP', 'BF UP NOTE', 24, false);
+				animation.addByPrefix('singDOWN', 'BF DOWN NOTE', 24, false);
+				if (isPlayer)
+				{
+					animation.addByPrefix('singLEFT', 'BF LEFT NOTE', 24, false);
+					animation.addByPrefix('singRIGHT', 'BF RIGHT NOTE', 24, false);
+					animation.addByPrefix('singRIGHTmiss', 'BF RIGHT MISS', 24, false);
+					animation.addByPrefix('singLEFTmiss', 'BF LEFT MISS', 24, false);
+				}
+				else
+				{
+					// Need to be flipped! REDO THIS LATER!
+					animation.addByPrefix('singLEFT', 'BF RIGHT NOTE', 24, false);
+					animation.addByPrefix('singRIGHT', 'BF LEFT NOTE', 24, false);
+					animation.addByPrefix('singRIGHTmiss', 'BF LEFT MISS', 24, false);
+					animation.addByPrefix('singLEFTmiss', 'BF RIGHT MISS', 24, false);
+				}
+				animation.addByPrefix('singUPmiss', 'BF UP MISS', 24, false);
+				animation.addByPrefix('singDOWNmiss', 'BF DOWN MISS', 24, false);
+
+				addOffset('idle');
+				addOffset("singUP");
+				addOffset("singRIGHT");
+				addOffset("singLEFT");
+				addOffset("singDOWN");
+				addOffset("singUPmiss");
+				addOffset("singRIGHTmiss");
+				addOffset("singLEFTmiss");
+				addOffset("singDOWNmiss");
+
+				setGraphicSize(Std.int(width * 6));
+				updateHitbox();
+
+				playAnim('idle');
+
+				width -= 100;
+				height -= 100;
+
+				antialiasing = false;
+
+				flipX = true;
+			case 'bf-pixel-dead':
+				frames = Paths.getSparrowAtlas('characters/bfPixelsDEAD');
+				animation.addByPrefix('singUP', "BF Dies pixel", 24, false);
+				animation.addByPrefix('firstDeath', "BF Dies pixel", 24, false);
+				animation.addByPrefix('deathLoop', "Retry Loop", 24, true);
+				animation.addByPrefix('deathConfirm', "RETRY CONFIRM", 24, false);
+				animation.play('firstDeath');
+
+				addOffset('firstDeath');
+				addOffset('deathLoop', -37);
+				addOffset('deathConfirm', -37);
+				playAnim('firstDeath');
+				// pixel bullshit
+				setGraphicSize(Std.int(width * 6));
+				updateHitbox();
+				antialiasing = false;
+				flipX = true;
+
 			case 'bully':
 				frames = Paths.getSparrowAtlas('characters/bully');
 				animation.addByPrefix('idle', 'Bully_Idle', 24, false);
@@ -506,16 +519,16 @@ class Character extends FlxSprite
 				animation.addByPrefix('singRIGHT', 'Bully_Right', 24, false);
 				animation.addByPrefix('singDOWN', 'Bully_Down', 24, false);
 
-				addOffset('idle');
-				addOffset("singUP");
-				addOffset("singRIGHT");
-				addOffset("singLEFT");
-				addOffset("singDOWN");
+				addOffset('idle', 0, -460);
+				addOffset("singUP", 0, -460);
+				addOffset("singRIGHT", 0, -460);
+				addOffset("singLEFT", 0, -460);
+				addOffset("singDOWN", 0, -460);
+
+				setGraphicSize(Std.int(width * 3.5));
+				updateHitbox();
 
 				playAnim('idle');
-
-				setGraphicSize(Std.int(width * 6));
-				updateHitbox();
 
 				antialiasing = false;
 		}

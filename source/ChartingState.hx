@@ -87,8 +87,8 @@ class ChartingState extends MusicBeatState
 	var gridBlackLine:FlxSprite;
 	var vocals:FlxSound;
 
-	var player2:Character = new Character(0,0, "dad");
-	var player1:Boyfriend = new Boyfriend(0,0, "bf");
+	var player2:Character = new Character(0,0, "bf-pixel");
+	var player1:Boyfriend = new Boyfriend(0,0, "bf-pixel");
 
 	var leftIcon:HealthIcon;
 	var rightIcon:HealthIcon;
@@ -111,9 +111,9 @@ class ChartingState extends MusicBeatState
 				notes: [],
 				bpm: 150,
 				needsVoices: true,
-				player1: 'bf',
-				player2: 'dad',
-				gfVersion: 'gf',
+				player1: 'bf-pixel',
+				player2: 'bf-pixel',
+				gfVersion: 'gf-pixel',
 				noteStyle: 'normal',
 				stage: 'stage',
 				speed: 1,
