@@ -1207,7 +1207,7 @@ class PlayState extends MusicBeatState
 				if (value == curStage)
 				{
 					introAlts = introAssets.get(value);
-					altSuffix = '-pixel';
+					altSuffix = '-baldi';
 				}
 			}
 
