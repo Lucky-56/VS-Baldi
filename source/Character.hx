@@ -498,6 +498,26 @@ class Character extends FlxSprite
 				addOffset("singDOWN-alt", -30, -27);
 
 				playAnim('idle');
+			case 'bully':
+				frames = Paths.getSparrowAtlas('characters/bully');
+				animation.addByPrefix('idle', 'Bully_Idle', 24, false);
+				animation.addByPrefix('singUP', 'Bully_Up', 24, false);
+				animation.addByPrefix('singLEFT', 'Bully_Left', 24, false);
+				animation.addByPrefix('singRIGHT', 'Bully_Right', 24, false);
+				animation.addByPrefix('singDOWN', 'Bully_Down', 24, false);
+
+				addOffset('idle');
+				addOffset("singUP");
+				addOffset("singRIGHT");
+				addOffset("singLEFT");
+				addOffset("singDOWN");
+
+				playAnim('idle');
+
+				setGraphicSize(Std.int(width * 6));
+				updateHitbox();
+
+				antialiasing = false;
 		}
 
 		dance();
