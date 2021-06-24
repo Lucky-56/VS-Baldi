@@ -1189,14 +1189,14 @@ class PlayState extends MusicBeatState
 			var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 			introAssets.set('default', ['ready', "set", "go"]);
 			introAssets.set('school', [
-				'weeb/pixelUI/ready-pixel',
-				'weeb/pixelUI/set-pixel',
-				'weeb/pixelUI/date-pixel'
+				'pixel/ready-pixel',
+				'pixel/set-pixel',
+				'pixel/date-pixel'
 			]);
 			introAssets.set('schoolEvil', [
-				'weeb/pixelUI/ready-pixel',
-				'weeb/pixelUI/set-pixel',
-				'weeb/pixelUI/date-pixel'
+				'pixel/ready-pixel',
+				'pixel/set-pixel',
+				'pixel/date-pixel'
 			]);
 
 			var introAlts:Array<String> = introAssets.get('default');
@@ -1502,7 +1502,7 @@ class PlayState extends MusicBeatState
 			switch (noteTypeCheck)
 			{
 				case 'pixel':
-					babyArrow.loadGraphic(Paths.image('weeb/pixelUI/arrows-pixels'), true, 17, 17);
+					babyArrow.loadGraphic(Paths.image('pixel/arrows-pixels', 'shared'), true, 17, 17);
 					babyArrow.animation.add('green', [6]);
 					babyArrow.animation.add('red', [7]);
 					babyArrow.animation.add('blue', [5]);
@@ -2740,7 +2740,7 @@ class PlayState extends MusicBeatState
 	
 			if (curStage.startsWith('school'))
 			{
-				pixelShitPart1 = 'weeb/pixelUI/';
+				pixelShitPart1 = 'pixel/';
 				pixelShitPart2 = '-pixel';
 			}
 	
