@@ -511,6 +511,26 @@ class Character extends FlxSprite
 				antialiasing = false;
 				flipX = true;
 
+			case 'baldi':
+				frames = Paths.getSparrowAtlas('characters/baldi');
+				animation.addByPrefix('idle', 'Baldi_Idle', 24, false);
+				animation.addByPrefix('singUP', 'Baldi_Up', 24, false);
+				animation.addByPrefix('singLEFT', 'Baldi_Left', 24, false);
+				animation.addByPrefix('singRIGHT', 'Baldi_Right', 24, false);
+				animation.addByPrefix('singDOWN', 'Baldi_Down', 24, false);
+
+				addOffset('idle');
+				addOffset("singUP");
+				addOffset("singRIGHT");
+				addOffset("singLEFT");
+				addOffset("singDOWN");
+
+				playAnim('idle');
+
+				setGraphicSize(Std.int(width * 6));
+				updateHitbox();
+
+				antialiasing = false;
 			case 'bully':
 				frames = Paths.getSparrowAtlas('characters/bully');
 				animation.addByPrefix('idle', 'Bully_Idle', 24, false);

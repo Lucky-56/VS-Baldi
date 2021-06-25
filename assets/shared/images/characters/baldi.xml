@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="baldi.png">
+	<!-- Art Created by Willow -->
+	<!-- XML Created by Lucky56 -->
+	<SubTexture name="Baldi_Idle0000" x="0" y="0" width="58" height="115"/>
+
+	<SubTexture name="Baldi_Left0000" x="59" y="0" width="63" height="116"/>
+	<SubTexture name="Baldi_Left0000" x="58" y="0" width="64" height="116"/>
+
+	<SubTexture name="Baldi_Down0000" x="0" y="117" width="52" height="116"/>
+	<SubTexture name="Baldi_Down0000" x="0" y="116" width="52" height="115"/>
+
+	<SubTexture name="Baldi_Up0000" x="53" y="115" width="67" height="116"/>
+	<SubTexture name="Baldi_Up0000" x="53" y="116" width="67" height="115"/>
+
+	<SubTexture name="Baldi_Right0000" x="122" y="0" width="58" height="115"/>
+	<SubTexture name="Baldi_Right0000" x="123" y="0" width="57" height="115"/>
+</TextureAtlas>
