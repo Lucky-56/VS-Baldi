@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="PlayMenuButtons.png">
+	<!-- Created by Lucky56 -->
+	<SubTexture name="story mode off0000" x="0" y="0" width="594" height="114"/>
+	<SubTexture name="freeplay off0000" x="0" y="115" width="594" height="114"/>
+
+	<SubTexture name="story mode on0000" x="595" y="0" width="594" height="114"/>
+	<SubTexture name="freeplay on0000" x="595" y="115" width="594" height="114"/>
+</TextureAtlas>

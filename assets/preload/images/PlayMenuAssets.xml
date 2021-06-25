@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="PlayMenuAssets.png">
+	<!-- Art Created by Willow -->
+	<!-- XML Created by Lucky56 -->
+	<SubTexture name="story off0000" x="0" y="0" width="210" height="210"/>
+	<SubTexture name="freeplay off0000" x="0" y="211" width="210" height="210"/>
+
+	<SubTexture name="story on0000" x="211" y="0" width="210" height="210"/>
+	<SubTexture name="freeplay on0000" x="211" y="211" width="210" height="210"/>
+</TextureAtlas>
