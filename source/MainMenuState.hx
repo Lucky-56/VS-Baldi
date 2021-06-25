@@ -14,6 +14,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import io.newgrounds.NG;
 import lime.app.Application;
+import flash.system.System;
 
 #if windows
 import Discord.DiscordClient;
@@ -34,7 +35,7 @@ class MainMenuState extends MusicBeatState
 
 	public static var kadeEngineVer:String = "1.5.3" + nightly;
 	public static var gameVer:String = "0.2.7.1";
-	public static var baldiVer:String = "v0.1\n";
+	public static var baldiVer:String = "v0.1";
 
 	override function create()
 	{
@@ -104,9 +105,24 @@ class MainMenuState extends MusicBeatState
 		aboutButton.antialiasing = false;
 		menuItems.add(aboutButton);
 
-		var versionStuff:FlxText = new FlxText(166, 930, 0, baldiVer, 54);
-		versionStuff.scrollFactor.set();
+		var exitButton:FlxSprite = new FlxSprite();
+		exitButton.frames = tex;
+		exitButton.animation.addByPrefix('idle', "exit off", 24);
+		exitButton.animation.addByPrefix('selected', "exit on", 24);
+		exitButton.animation.play('idle');
+		exitButton.ID = 3;
+		exitButton.x = 160;
+		exitButton.y = 592;
+		exitButton.scrollFactor.set();
+		exitButton.antialiasing = false;
+		menuItems.add(exitButton);
+
+		var versionStuff:FlxText = new FlxText(930, 166, 0, baldiVer, 18);
 		versionStuff.setFormat("Comic Sans MS", 18, FlxColor.BLACK, LEFT);
+		versionStuff.antialiasing = false;
+		versionStuff.scale.x = 3;
+		versionStuff.scale.y = 3;
+		versionStuff.scrollFactor.set();
 		add(versionStuff);
 
 		var versionShit:FlxText = new FlxText(5, FlxG.height - 18, 0, gameVer +  (Main.watermarks ? " FNF - " + kadeEngineVer + " Kade Engine" : ""), 12);
@@ -150,26 +166,29 @@ class MainMenuState extends MusicBeatState
 				changeItem(1);
 			}
 
-			if (controls.BACK)
-			{
-				FlxG.switchState(new TitleState());
-			}
-
 			if (controls.ACCEPT)
 			{
 				selectedSomethin = true;
-				FlxG.sound.play(Paths.sound('confirmMenu'));
 
 				menuItems.forEach(function(spr:FlxSprite)
 				{
 					switch (curSelected)
 					{
 						case 0:
+							FlxG.sound.play(Paths.sound('confirmMenu'));
 							FlxG.switchState(new PlayMenuState());
 						case 1:
+							FlxG.sound.play(Paths.sound('confirmMenu'));
 							FlxG.switchState(new OptionsMenu());
 						case 2:
+							FlxG.sound.play(Paths.sound('confirmMenu'));
 							FlxG.switchState(new AboutMenuState());
+						case 3:
+							FlxG.sound.play(Paths.sound('thanksForPlaying'));
+							new FlxTimer().start(4, function(tmr:FlxTimer)
+							{
+								System.exit(0);
+							});
 					}
 				});
 			}

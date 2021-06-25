@@ -4,8 +4,10 @@
 	<SubTexture name="play off0000" x="0" y="0" width="238" height="94"/>
 	<SubTexture name="options off0000" x="0" y="113" width="276" height="76"/>
 	<SubTexture name="about off0000" x="240" y="0" width="214" height="112"/>
+	<SubTexture name="exit off0000" x="455" y="0" width="128" height="128"/>
 
 	<SubTexture name="play on0000" x="0" y="190" width="238" height="94"/>
 	<SubTexture name="options on0000" x="0" y="303" width="276" height="76"/>
 	<SubTexture name="about on0000" x="240" y="190" width="214" height="112"/>
+	<SubTexture name="exit on0000" x="455" y="190" width="128" height="128"/>
 </TextureAtlas>
