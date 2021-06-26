@@ -30,7 +30,6 @@ class FreeplayState extends MusicBeatState
 	var scoreText:FlxText;
 	var comboText:FlxText;
 	var diffText:FlxText;
-	var diffCalcText:FlxText;
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
 	var combo:String = '';
@@ -75,6 +74,7 @@ class FreeplayState extends MusicBeatState
 				FreeplayState.loadDiff(0,format,meta.songName,diffs);
 				FreeplayState.loadDiff(1,format,meta.songName,diffs);
 				FreeplayState.loadDiff(2,format,meta.songName,diffs);
+				FreeplayState.loadDiff(3,format,meta.songName,diffs);
 				FreeplayState.songData.set(meta.songName,diffs);
 				trace('loaded diffs for ' + meta.songName);
 			// }
@@ -133,17 +133,13 @@ class FreeplayState extends MusicBeatState
 		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
 		// scoreText.alignment = RIGHT;
 
-		var scoreBG:FlxSprite = new FlxSprite(scoreText.x - 6, 0).makeGraphic(Std.int(FlxG.width * 0.35), 105, 0xFF000000);
+		var scoreBG:FlxSprite = new FlxSprite(scoreText.x - 6, 0).makeGraphic(Std.int(FlxG.width * 0.35), 66, 0xFF000000);
 		scoreBG.alpha = 0.6;
 		add(scoreBG);
 
 		diffText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
 		diffText.font = scoreText.font;
 		add(diffText);
-
-		diffCalcText = new FlxText(scoreText.x, scoreText.y + 66, 0, "", 24);
-		diffCalcText.font = scoreText.font;
-		add(diffCalcText);
 
 		comboText = new FlxText(diffText.x + 100, diffText.y, 0, "", 24);
 		comboText.font = diffText.font;
@@ -316,7 +312,6 @@ class FreeplayState extends MusicBeatState
 		intendedScore = Highscore.getScore(songHighscore, curDifficulty);
 		combo = Highscore.getCombo(songHighscore, curDifficulty);
 		#end
-		diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';
 		diffText.text = CoolUtil.difficultyFromInt(curDifficulty).toUpperCase();
 	}
 
@@ -352,8 +347,6 @@ class FreeplayState extends MusicBeatState
 		// lerpScore = 0;
 		#end
 
-		diffCalcText.text = 'RATING: ${DiffCalc.CalculateDiff(songData.get(songs[curSelected].songName)[curDifficulty])}';
-		
 		#if PRELOAD_ALL
 		FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
 		#end
