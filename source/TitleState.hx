@@ -277,7 +277,9 @@ class TitleState extends MusicBeatState
 			FlxG.fullscreen = !FlxG.fullscreen;
 		}
 
-		var pressedEnter:Bool = controls.ACCEPT;
+		var pressedEnter:Bool = false;
+		if(FlxG.keys.justPressed.ANY && !FlxG.keys.justPressed.MINUS && !FlxG.keys.justPressed.PLUS && !FlxG.keys.justPressed.NUMPADZERO)
+			pressedEnter = true;
 
 		#if mobile
 		for (touch in FlxG.touches.list)
