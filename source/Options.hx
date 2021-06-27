@@ -796,3 +796,47 @@ class ResetSettings extends Option
 		return confirm ? "Confirm Settings Reset" : "Reset Settings";
 	}
 }
+
+class RandomGoodSound extends Option
+{
+	var confirm:Bool = false;
+
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		FlxG.sound.play(Paths.goodSoundRandom());
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Random Good Sound";
+	}
+}
+
+class RandomBadSound extends Option
+{
+	var confirm:Bool = false;
+
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		FlxG.sound.play(Paths.badSoundRandom());
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Random Bad Sound";
+	}
+}

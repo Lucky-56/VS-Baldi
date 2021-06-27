@@ -64,6 +64,13 @@ class OptionsMenu extends MusicBeatState
 			new ScoreScreen("Show the score screen after the end of a song")
 		]),
 		
+		#if !final
+		new OptionCategory("Sound Test", [
+			new RandomGoodSound("Get a Random Good Sound."),
+			new RandomBadSound("Get a Random Bad Sound.")
+		]),
+		#end
+		
 		new OptionCategory("Manage Save Data", [
 			new ResetScoreOption("Reset your score on all songs and weeks."),
 			new LockWeeksOption("Reset your storymode progress. (only Tutorial + Week 1 will be unlocked)"),

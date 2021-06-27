@@ -90,6 +90,20 @@ class Paths
 		return sound(key + FlxG.random.int(min, max), library);
 	}
 
+	inline static public function goodSoundRandom()
+	{
+		if(FlxG.random.int(0, 1) == 0)
+			return soundRandom('good/oldPraise', 1, 5, 'shared');
+		else
+			return soundRandom('good/praise', 1, 6, 'shared');
+	}
+
+	inline static public function badSoundRandom()
+	{
+		var badSounds:Array<String> = ['countdown', 'ohh', 'run'];
+		return sound('bad/' + badSounds[FlxG.random.int(0, 2)], 'shared');
+	}
+
 	inline static public function music(key:String, ?library:String)
 	{
 		return getPath('music/$key.$SOUND_EXT', MUSIC, library);
