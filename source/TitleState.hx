@@ -158,6 +158,7 @@ class TitleState extends MusicBeatState
 			// FlxG.sound.list.add(music);
 			// music.play();
 			FlxG.sound.playMusic(Paths.music('ErrorScreen'));
+			FlxG.mouse.load("assets/cursor.png");
 		}
 
 		Conductor.changeBPM(102);

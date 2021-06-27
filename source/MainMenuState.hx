@@ -16,6 +16,7 @@ import flixel.util.FlxTimer;
 import io.newgrounds.NG;
 import lime.app.Application;
 import flash.system.System;
+import flixel.input.mouse.FlxMouseEventManager;
 
 #if windows
 import Discord.DiscordClient;
@@ -141,10 +142,18 @@ class MainMenuState extends MusicBeatState
 
 		changeItem();
 
+		for (i in 0...menuItems.length)
+		{
+			var spr:FlxSprite = menuItems.members[i];
+			FlxMouseEventManager.add(spr, onMouseDown, null, onMouseOver, onMouseOut);
+		}
+
 		super.create();
 	}
 
 	var selectedSomethin:Bool = false;
+
+	var mouse:Bool = false;
 
 	override function update(elapsed:Float)
 	{
@@ -155,17 +164,24 @@ class MainMenuState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
+			if (FlxG.mouse.justMoved)
+			{
+				switchToMouse();
+			}
+
 			var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
 			if (gamepad != null)
 			{
 				if (gamepad.justPressed.DPAD_UP)
 				{
+					switchFromMouse();
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					changeItem(-1);
 				}
 				if (gamepad.justPressed.DPAD_DOWN)
 				{
+					switchFromMouse();
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					changeItem(1);
 				}
@@ -173,45 +189,53 @@ class MainMenuState extends MusicBeatState
 
 			if (FlxG.keys.justPressed.UP)
 			{
+				switchFromMouse();
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(-1);
 			}
 
 			if (FlxG.keys.justPressed.DOWN)
 			{
+				switchFromMouse();
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
 			}
 
 			if (controls.ACCEPT)
 			{
+				switchFromMouse();
 				selectedSomethin = true;
 
 				menuItems.forEach(function(spr:FlxSprite)
 				{
-					switch (curSelected)
-					{
-						case 0:
-							FlxG.sound.play(Paths.sound('confirmMenu'));
-							FlxG.switchState(new PlayMenuState());
-						case 1:
-							FlxG.sound.play(Paths.sound('confirmMenu'));
-							FlxG.switchState(new OptionsMenu());
-						case 2:
-							FlxG.sound.play(Paths.sound('confirmMenu'));
-							FlxG.switchState(new AboutMenuState());
-						case 3:
-							FlxG.sound.play(Paths.sound('thanksForPlaying'));
-							new FlxTimer().start(4, function(tmr:FlxTimer)
-							{
-								System.exit(0);
-							});
-					}
+					menuButton(curSelected);
 				});
 			}
 		}
 
 		super.update(elapsed);
+	}
+	
+	function menuButton(button:Int)
+	{
+		switch (button)
+		{
+			case 0:
+				FlxG.sound.play(Paths.sound('confirmMenu'));
+				FlxG.switchState(new PlayMenuState());
+			case 1:
+				FlxG.sound.play(Paths.sound('confirmMenu'));
+				FlxG.switchState(new OptionsMenu());
+			case 2:
+				FlxG.sound.play(Paths.sound('confirmMenu'));
+				FlxG.switchState(new AboutMenuState());
+			case 3:
+				FlxG.sound.play(Paths.sound('thanksForPlaying'), 0.7);
+				new FlxTimer().start(4, function(tmr:FlxTimer)
+				{
+					System.exit(0);
+				});
+		}
 	}
 	
 	function changeItem(huh:Int = 0)
@@ -233,5 +257,41 @@ class MainMenuState extends MusicBeatState
 
 			spr.updateHitbox();
 		});
+	}
+
+	function switchFromMouse()
+	{
+		FlxG.mouse.visible = false;
+		mouse = false;
+	}
+	
+	function switchToMouse()
+	{
+		FlxG.mouse.visible = true;
+		if(!mouse)
+		{
+			menuItems.forEach(function(spr:FlxSprite)
+			{
+				spr.animation.play('idle');
+				spr.updateHitbox();
+			});
+		}
+		mouse = true;
+	}
+
+	function onMouseOver(spr:FlxSprite)
+	{
+		FlxG.sound.play(Paths.sound('scrollMenu'));
+		spr.animation.play('selected');
+	}
+
+	function onMouseOut(spr:FlxSprite)
+	{
+		spr.animation.play('idle');
+	}
+
+	function onMouseDown(spr:FlxSprite)
+	{
+		menuButton(spr.ID);
 	}
 }
