@@ -105,7 +105,25 @@ class TitleState extends MusicBeatState
 		#else
 		new FlxTimer().start(1, function(tmr:FlxTimer)
 		{
-			startIntro();
+			#if sys
+			if(!sys.FileSystem.exists(Sys.getCwd() + Paths.file('ruler.png', IMAGE)))
+			{
+				if (FlxG.sound.music != null)
+					FlxG.sound.music.stop();
+				var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('error'));
+				bg.scrollFactor.set();
+				bg.updateHitbox();
+				bg.screenCenter();
+				bg.antialiasing = false;
+				add(bg);
+				FlxG.sound.play(Paths.sound('LOL'));
+				new FlxTimer().start(2.6, function(tmr:FlxTimer)
+				{
+					startIntro();
+				});
+			} else
+			#end
+				startIntro();
 		});
 		#end
 	}
