@@ -1,3 +1,6 @@
 bf-pixel
 baldi
+baldi-mad
 bully
+badsum
+badsum-mad
