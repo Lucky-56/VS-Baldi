@@ -157,8 +157,17 @@ class TitleState extends MusicBeatState
 			// music.loadStream(Paths.music('freakyMenu'));
 			// FlxG.sound.list.add(music);
 			// music.play();
-			FlxG.sound.playMusic(Paths.music('ErrorScreen'));
-			FlxG.mouse.load("assets/cursor.png");
+			#if sys
+			if(sys.FileSystem.exists(Sys.getCwd() + Paths.file('music/holy')))
+			{
+				if (FlxG.sound.music != null)
+					FlxG.sound.music.stop();
+				FlxG.sound.playMusic(Paths.music('CreepyOldComputer'));
+				FlxG.mouse.load(Paths.image('cursor'));
+			} else
+			#end
+				FlxG.sound.playMusic(Paths.music('ErrorScreen'));
+				FlxG.mouse.load(Paths.image('cursor'));
 		}
 
 		Conductor.changeBPM(102);
