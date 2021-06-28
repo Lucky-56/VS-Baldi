@@ -72,7 +72,7 @@ class PlayMenuState extends MusicBeatState
 		storyButton.animation.addByPrefix('selected', "story on", 24);
 		storyButton.animation.play('idle');
 		storyButton.ID = 0;
-		storyButton.x = 75;
+		storyButton.x = 200;
 		storyButton.y = 75;
 		storyButton.scrollFactor.set();
 		storyButton.antialiasing = false;
@@ -89,7 +89,7 @@ class PlayMenuState extends MusicBeatState
 		freeplayButton.animation.addByPrefix('selected', "freeplay on", 24);
 		freeplayButton.animation.play('idle');
 		freeplayButton.ID = 1;
-		freeplayButton.x = 995;
+		freeplayButton.x = 870;
 		freeplayButton.y = 435;
 		freeplayButton.scrollFactor.set();
 		freeplayButton.antialiasing = false;
