@@ -90,6 +90,8 @@ class OptionsMenu extends MusicBeatState
 	var blackBorder:FlxSprite;
 	override function create()
 	{
+		FlxG.sound.playMusic(Paths.music('TheSideEffectsOfSchool'));
+
 		instance = this;
 		var menuBG:FlxBackdrop = new FlxBackdrop(Paths.image("wall"));
 

@@ -39,6 +39,8 @@ class MainMenuState extends MusicBeatState
 	public static var gameVer:String = "0.2.7.1";
 	public static var baldiVer:String = "v0.1";
 
+	static var firstStart:Bool = true;
+
 	override function create()
 	{
 		#if windows
@@ -48,7 +50,12 @@ class MainMenuState extends MusicBeatState
 
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
-		FlxG.sound.play(Paths.sound('baldiIntro'));
+		if(firstStart)
+		{
+			FlxG.sound.play(Paths.sound('baldiIntro'));
+			firstStart = false;
+		}
+		
 
 		persistentUpdate = persistentDraw = true;
 
