@@ -261,6 +261,7 @@ class MainMenuState extends MusicBeatState
 
 	function switchFromMouse()
 	{
+		changeItem();
 		FlxG.mouse.visible = false;
 		mouse = false;
 	}
