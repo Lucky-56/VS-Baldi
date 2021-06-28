@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="badsum.png">
+	<!-- Art Created by Willow -->
+	<!-- XML Created by Lucky56 -->
+	<SubTexture name="Badsum_Idle0000" x="0" y="0" width="38" height="115"/>
+
+	<SubTexture name="Badsum_Left0000" x="39" y="0" width="90" height="116"/>
+	<SubTexture name="Badsum_Left0001" x="39" y="0" width="90" height="116" frameX="1" frameY="0"/>
+
+	<SubTexture name="Badsum_Down0000" x="0" y="117" width="52" height="115"/>
+	<SubTexture name="Badsum_Down0001" x="0" y="117" width="52" height="115" frameX="0" frameY="-1"/>
+
+	<SubTexture name="Badsum_Up0000" x="53" y="117" width="60" height="120"/>
+	<SubTexture name="Badsum_Up0001" x="53" y="117" width="60" height="120" frameX="0" frameY="1"/>
+
+	<SubTexture name="Badsum_Right0000" x="114" y="117" width="87" height="115"/>
+	<SubTexture name="Badsum_Right0001" x="114" y="117" width="87" height="115" frameX="-1" frameY="0"/>
+	
+	<SubTexture name="Badsum_Transition0000" x="130" y="0" width="37" height="115"/>
+</TextureAtlas>
