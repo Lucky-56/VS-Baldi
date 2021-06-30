@@ -166,17 +166,17 @@ class PlayMenuState extends MusicBeatState
 
 		menuItemsForMouse = new FlxTypedGroup<FlxSprite>();
 
-		var storyButtonForMouse:FlxSprite = new FlxSprite(storyButton.x,storyButton.y).makeGraphic(720, 210, FlxColor.GREEN);
+		var storyButtonForMouse:FlxSprite = new FlxSprite(storyButton.x,storyButton.y).makeGraphic(720, 210);
 		storyButtonForMouse.ID = 0;
 		storyButtonForMouse.scrollFactor.set();
 		menuItemsForMouse.add(storyButtonForMouse);
 
-		var freeplayButtonForMouse:FlxSprite = new FlxSprite(560 - storyButton.x, 510 - storyButton.y).makeGraphic(720, 210, FlxColor.GREEN);
+		var freeplayButtonForMouse:FlxSprite = new FlxSprite(560 - storyButton.x, 510 - storyButton.y).makeGraphic(720, 210);
 		freeplayButtonForMouse.ID = 1;
 		freeplayButtonForMouse.scrollFactor.set();
 		menuItemsForMouse.add(freeplayButtonForMouse);
 
-		var backButtonForMouse:FlxSprite = new FlxSprite(160, 0).makeGraphic(64, 64, FlxColor.GREEN);
+		var backButtonForMouse:FlxSprite = new FlxSprite(160, 0).makeGraphic(64, 64);
 		backButtonForMouse.ID = 2;
 		backButtonForMouse.scrollFactor.set();
 		menuItemsForMouse.add(backButtonForMouse);
