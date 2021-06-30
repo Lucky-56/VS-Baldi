@@ -185,13 +185,13 @@ class MainMenuState extends MusicBeatState
 				if (gamepad.justPressed.DPAD_UP)
 				{
 					switchFromMouse();
-					FlxG.sound.play(Paths.sound('scrollMenu'));
+					FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 					changeItem(-1);
 				}
 				if (gamepad.justPressed.DPAD_DOWN)
 				{
 					switchFromMouse();
-					FlxG.sound.play(Paths.sound('scrollMenu'));
+					FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 					changeItem(1);
 				}
 			}
@@ -199,14 +199,14 @@ class MainMenuState extends MusicBeatState
 			if (FlxG.keys.justPressed.UP)
 			{
 				switchFromMouse();
-				FlxG.sound.play(Paths.sound('scrollMenu'));
+				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 				changeItem(-1);
 			}
 
 			if (FlxG.keys.justPressed.DOWN)
 			{
 				switchFromMouse();
-				FlxG.sound.play(Paths.sound('scrollMenu'));
+				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 				changeItem(1);
 			}
 
@@ -296,7 +296,7 @@ class MainMenuState extends MusicBeatState
 
 	function onMouseOver(spr:FlxSprite)
 	{
-		FlxG.sound.play(Paths.sound('scrollMenu'));
+		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 		spr.animation.play('selected');
 	}
 

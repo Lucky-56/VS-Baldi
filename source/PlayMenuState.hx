@@ -233,14 +233,14 @@ class PlayMenuState extends MusicBeatState
 			if (controls.UP_P)
 			{
 				switchFromMouse();
-				FlxG.sound.play(Paths.sound('scrollMenu'));
+				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 				changeItem(-1);
 			}
 
 			if (controls.DOWN_P)
 			{
 				switchFromMouse();
-				FlxG.sound.play(Paths.sound('scrollMenu'));
+				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 				changeItem(1);
 			}
 
@@ -340,7 +340,7 @@ class PlayMenuState extends MusicBeatState
 
 	function onMouseOver(spr:FlxSprite)
 	{
-		FlxG.sound.play(Paths.sound('scrollMenu'));
+		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 		//spr.animation.play('selected');
 		menuItems.forEach(function(grp:FlxTypedSpriteGroup<FlxSprite>){
 			if(grp.ID == spr.ID)

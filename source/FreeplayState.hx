@@ -473,7 +473,7 @@ class FreeplayState extends MusicBeatState
 
 	function onMouseOver(spr:FlxSprite)
 	{
-		FlxG.sound.play(Paths.sound('scrollMenu'));
+		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 		backButton.animation.play('selected');
 		backSel = true;
 	}

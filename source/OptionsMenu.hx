@@ -183,20 +183,26 @@ class OptionsMenu extends MusicBeatState
 			{
 				if (gamepad.justPressed.DPAD_UP)
 				{
-					FlxG.sound.play(Paths.sound('scrollMenu'));
+					FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 					changeSelection(-1);
 				}
 				if (gamepad.justPressed.DPAD_DOWN)
 				{
-					FlxG.sound.play(Paths.sound('scrollMenu'));
+					FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 					changeSelection(1);
 				}
 			}
 			
 			if (FlxG.keys.justPressed.UP)
+			{
+				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 				changeSelection(-1);
+			}
 			if (FlxG.keys.justPressed.DOWN)
+			{
+				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 				changeSelection(1);
+			}
 			
 			if (isCat)
 			{
@@ -303,8 +309,6 @@ class OptionsMenu extends MusicBeatState
 		// NGio.logEvent("Fresh");
 		#end
 		
-		FlxG.sound.play(Paths.sound("scrollMenu"), 0.4);
-
 		curSelected += change;
 
 		if (curSelected < 0)
