@@ -40,6 +40,8 @@ class MainMenuState extends MusicBeatState
 	public static var baldiVer:String = "v0.1";
 
 	static var firstStart:Bool = true;
+	
+	var leaving:Bool = false;
 
 	override function create()
 	{
@@ -225,24 +227,28 @@ class MainMenuState extends MusicBeatState
 	
 	function menuButton(button:Int)
 	{
-		switch (button)
+		if (!leaving)
 		{
-			case 0:
-				FlxG.sound.play(Paths.sound('confirmMenu'));
-				FlxG.switchState(new PlayMenuState());
-			case 1:
-				FlxG.sound.play(Paths.sound('confirmMenu'));
-				FlxG.switchState(new OptionsMenu());
-			case 2:
-				FlxG.sound.play(Paths.sound('confirmMenu'));
-				FlxG.switchState(new AboutMenuState());
-			case 3:
-				FlxG.sound.play(Paths.sound('thanksForPlaying'), 0.9);
-				new FlxTimer().start(4, function(tmr:FlxTimer)
-				{
-					System.exit(0);
-				});
+			switch (button)
+			{
+				case 0:
+					FlxG.sound.play(Paths.sound('confirmMenu'));
+					FlxG.switchState(new PlayMenuState());
+				case 1:
+					FlxG.sound.play(Paths.sound('confirmMenu'));
+					FlxG.switchState(new OptionsMenu());
+				case 2:
+					FlxG.sound.play(Paths.sound('confirmMenu'));
+					FlxG.switchState(new AboutMenuState());
+				case 3:
+					FlxG.sound.play(Paths.sound('thanksForPlaying'), 0.9);
+					new FlxTimer().start(4, function(tmr:FlxTimer)
+					{
+						System.exit(0);
+					});
+			}
 		}
+		leaving = true;
 	}
 	
 	function changeItem(huh:Int = 0)
