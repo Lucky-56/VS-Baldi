@@ -213,7 +213,6 @@ class MainMenuState extends MusicBeatState
 			if (controls.ACCEPT)
 			{
 				switchFromMouse();
-				selectedSomethin = true;
 
 				menuItems.forEach(function(spr:FlxSprite)
 				{
@@ -227,6 +226,8 @@ class MainMenuState extends MusicBeatState
 	
 	function menuButton(button:Int)
 	{
+		selectedSomethin = true;
+
 		if (!leaving)
 		{
 			switch (button)
