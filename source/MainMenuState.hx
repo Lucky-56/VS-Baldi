@@ -59,19 +59,19 @@ class MainMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('BG'));
-		bg.scrollFactor.set();
-		bg.updateHitbox();
-		bg.screenCenter();
-		bg.antialiasing = false;
-		add(bg);
-
 		var baldi:FlxSprite = new FlxSprite().loadGraphic(Paths.image('baldiBG'));
 		baldi.scrollFactor.set();
 		baldi.updateHitbox();
 		baldi.screenCenter();
 		baldi.antialiasing = false;
 		add(baldi);
+
+		var bars:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bars'));
+		bars.scrollFactor.set();
+		bars.updateHitbox();
+		bars.screenCenter();
+		bars.antialiasing = false;
+		add(bars);
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);

@@ -51,12 +51,18 @@ class PlayMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('BG'));
+		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height);
 		bg.scrollFactor.set();
 		bg.updateHitbox();
 		bg.screenCenter();
-		bg.antialiasing = false;
 		add(bg);
+		
+		var bars:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bars'));
+		bars.scrollFactor.set();
+		bars.updateHitbox();
+		bars.screenCenter();
+		bars.antialiasing = false;
+		add(bars);
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
@@ -91,6 +97,18 @@ class PlayMenuState extends MusicBeatState
 		freeplayButton.scrollFactor.set();
 		freeplayButton.antialiasing = false;
 		menuItems.add(freeplayButton);
+
+		var backButton:FlxSprite = new FlxSprite();
+		backButton.frames = Paths.getSparrowAtlas('MainMenuButtons');
+		backButton.animation.addByPrefix('idle', "return off", 24);
+		backButton.animation.addByPrefix('selected', "return on", 24);
+		backButton.animation.play('idle');
+		backButton.ID = 2;
+		backButton.x = 160;
+		backButton.y = 0;
+		backButton.scrollFactor.set();
+		backButton.antialiasing = false;
+		menuItems.add(backButton);
 
 		var versionShit:FlxText = new FlxText(5, FlxG.height - 18, 0, "FNF - " + gameVer +  " | KE - " + kadeEngineVer, 12);
 		versionShit.scrollFactor.set();
@@ -133,11 +151,6 @@ class PlayMenuState extends MusicBeatState
 				changeItem(1);
 			}
 
-			if (controls.BACK)
-			{
-				FlxG.switchState(new MainMenuState());
-			}
-
 			if (controls.ACCEPT)
 			{
 				selectedSomethin = true;
@@ -151,6 +164,8 @@ class PlayMenuState extends MusicBeatState
 							FlxG.switchState(new StoryMenuState());
 						case 1:
 							FlxG.switchState(new FreeplayState());
+						case 2:
+							FlxG.switchState(new MainMenuState());
 					}
 				});
 			}

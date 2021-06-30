@@ -1,5 +1,7 @@
 package;
 
+import flixel.graphics.frames.FlxBitmapFont;
+import Alphabet.Skebeep;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -82,7 +84,8 @@ class OptionsMenu extends MusicBeatState
 	public var acceptInput:Bool = true;
 
 	private var currentDescription:String = "";
-	private var grpControls:FlxTypedGroup<Alphabet>;
+	private var comicSans:FlxBitmapFont = FlxBitmapFont.fromAngelCode(Paths.image('comic-sans'),Paths.file('images/comic-sans.fnt'));
+	private var grpControls:FlxTypedGroup<Skebeep>;
 	public static var versionShit:FlxText;
 
 	var currentSelectedCat:OptionCategory;
@@ -93,20 +96,30 @@ class OptionsMenu extends MusicBeatState
 
 		instance = this;
 		var menuBG:FlxBackdrop = new FlxBackdrop(Paths.image("wall"));
-
 		menuBG.antialiasing = true;
 		add(menuBG);
+		
+		var bars:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bars'));
+		bars.scrollFactor.set();
+		bars.updateHitbox();
+		bars.screenCenter();
+		bars.antialiasing = false;
+		add(bars);
 
-		grpControls = new FlxTypedGroup<Alphabet>();
+		grpControls = new FlxTypedGroup<Skebeep>();
 		add(grpControls);
 
 		for (i in 0...options.length)
 		{
-			var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, options[i].getName(), true, false, true);
+			var controlLabel:Skebeep = new Skebeep(comicSans);
+			controlLabel.setPosition(0, (70 * i) + 30);
+			controlLabel.text = options[i].getName();
 			controlLabel.isMenuItem = true;
-			controlLabel.targetY = i;
+			controlLabel.myID = i;
+			controlLabel.scale.set(3, 3);
+			controlLabel.updateHitbox();
+			controlLabel.screenCenter(X);
 			grpControls.add(controlLabel);
-			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
 		}
 
 		currentDescription = "none";
@@ -145,9 +158,14 @@ class OptionsMenu extends MusicBeatState
 				grpControls.clear();
 				for (i in 0...options.length)
 				{
-					var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, options[i].getName(), true, false);
+					var controlLabel:Skebeep = new Skebeep(comicSans);
+					controlLabel.setPosition(0, (70 * i) + 30);
+					controlLabel.text = options[i].getName();
 					controlLabel.isMenuItem = true;
-					controlLabel.targetY = i;
+					controlLabel.myID = i;
+					controlLabel.scale.set(3, 3);
+					controlLabel.updateHitbox();
+					controlLabel.screenCenter(X);
 					grpControls.add(controlLabel);
 					// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
 				}
@@ -244,7 +262,7 @@ class OptionsMenu extends MusicBeatState
 				if (isCat)
 				{
 					if (currentSelectedCat.getOptions()[curSelected].press()) {
-						grpControls.members[curSelected].reType(currentSelectedCat.getOptions()[curSelected].getDisplay());
+						grpControls.members[curSelected].text = currentSelectedCat.getOptions()[curSelected].getDisplay();
 						trace(currentSelectedCat.getOptions()[curSelected].getDisplay());
 					}
 				}
@@ -255,9 +273,14 @@ class OptionsMenu extends MusicBeatState
 					grpControls.clear();
 					for (i in 0...currentSelectedCat.getOptions().length)
 						{
-							var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, currentSelectedCat.getOptions()[i].getDisplay(), true, false);
+							var controlLabel:Skebeep = new Skebeep(FlxBitmapFont.fromAngelCode(Paths.image('comic-sans'),Paths.file('images/comic-sans.fnt')));			
+							controlLabel.setPosition(0, (70 * i) + 30);
+							controlLabel.text = currentSelectedCat.getOptions()[i].getDisplay();
 							controlLabel.isMenuItem = true;
-							controlLabel.targetY = i;
+							controlLabel.myID = i;
+							controlLabel.scale.set(3, 3);
+							controlLabel.updateHitbox();
+							controlLabel.screenCenter(X);
 							grpControls.add(controlLabel);
 							// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
 						}
@@ -306,13 +329,13 @@ class OptionsMenu extends MusicBeatState
 
 		for (item in grpControls.members)
 		{
-			item.targetY = bullShit - curSelected;
+			item.myID = bullShit - curSelected;
 			bullShit++;
 
 			item.alpha = 0.6;
 			// item.setGraphicSize(Std.int(item.width * 0.8));
 
-			if (item.targetY == 0)
+			if (item.myID == 0)
 			{
 				item.alpha = 1;
 				// item.setGraphicSize(Std.int(item.width));

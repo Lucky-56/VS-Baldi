@@ -1,5 +1,8 @@
 package;
 
+import flixel.graphics.frames.FlxBitmapFont;
+import Alphabet.Skebeep;
+import flixel.addons.display.FlxBackdrop;
 import Song.SwagSong;
 import flixel.input.gamepad.FlxGamepad;
 import flash.text.TextField;
@@ -34,7 +37,8 @@ class FreeplayState extends MusicBeatState
 	var intendedScore:Int = 0;
 	var combo:String = '';
 
-	private var grpSongs:FlxTypedGroup<Alphabet>;
+	private var comicSans:FlxBitmapFont = FlxBitmapFont.fromAngelCode(Paths.image('comic-sans'),Paths.file('images/comic-sans.fnt'));
+	private var grpSongs:FlxTypedGroup<Skebeep>;
 	private var curPlaying:Bool = false;
 
 	private var iconArray:Array<HealthIcon> = [];
@@ -80,6 +84,11 @@ class FreeplayState extends MusicBeatState
 			// }
 		}
 
+		for (i in 0...10)
+		{
+			songs.push(new SongMetadata('filler song $i', 0, 'bf-pixel'));
+		}
+
 		/* 
 			if (FlxG.sound.music != null)
 			{
@@ -103,17 +112,32 @@ class FreeplayState extends MusicBeatState
 
 		// LOAD CHARACTERS
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBGBlue'));
-		add(bg);
+		var menuBG:FlxBackdrop = new FlxBackdrop(Paths.image("wall"));
+		menuBG.antialiasing = true;
+		add(menuBG);
+		
+		var bars:FlxSprite = new FlxSprite().loadGraphic(Paths.image('bars'));
+		bars.scrollFactor.set();
+		bars.updateHitbox();
+		bars.screenCenter();
+		bars.antialiasing = false;
+		add(bars);
 
-		grpSongs = new FlxTypedGroup<Alphabet>();
+		grpSongs = new FlxTypedGroup<Skebeep>();
 		add(grpSongs);
 
+		FlxG.camera.pixelPerfectRender = true;
+		
 		for (i in 0...songs.length)
 		{
-			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].songName, true, false, true);
+			var songText:Skebeep = new Skebeep(comicSans);
+			songText.setPosition(0, (70 * i) + 30);
+			songText.text = songs[i].songName;
 			songText.isMenuItem = true;
-			songText.targetY = i;
+			songText.myID = i;
+			songText.scale.set(3, 3);
+			songText.updateHitbox();
+			songText.screenCenter(X);
 			grpSongs.add(songText);
 
 			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
@@ -362,13 +386,13 @@ class FreeplayState extends MusicBeatState
 
 		for (item in grpSongs.members)
 		{
-			item.targetY = bullShit - curSelected;
+			item.myID = bullShit - curSelected;
 			bullShit++;
 
 			item.alpha = 0.6;
 			// item.setGraphicSize(Std.int(item.width * 0.8));
 
-			if (item.targetY == 0)
+			if (item.myID == 0)
 			{
 				item.alpha = 1;
 				// item.setGraphicSize(Std.int(item.width));

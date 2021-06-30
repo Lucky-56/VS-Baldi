@@ -1,5 +1,6 @@
 package;
 
+import flixel.text.FlxBitmapText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.FlxG;
@@ -380,3 +381,27 @@ class AlphaCharacter extends FlxSprite
 		updateHitbox();
 	}
 }
+
+class Skebeep extends FlxBitmapText
+{
+	/**
+	 * My ID lol.
+	 */
+	public var myID:Int;
+	// menu Shit
+	public var isMenuItem:Bool = false;
+
+	override function update(elapsed:Float)
+	{
+		if (isMenuItem)
+		{
+			var scaledY = FlxMath.remapToRange(myID, 0, 1, 0, 1.3);
+
+			y = FlxMath.lerp(y, (scaledY * 120) + (FlxG.height * 0.48), 0.30);
+		}
+
+		super.update(elapsed);
+	}
+}
+
+
