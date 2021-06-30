@@ -237,7 +237,7 @@ class MainMenuState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 				FlxG.switchState(new AboutMenuState());
 			case 3:
-				FlxG.sound.play(Paths.sound('thanksForPlaying'), 0.7);
+				FlxG.sound.play(Paths.sound('thanksForPlaying'), 0.9);
 				new FlxTimer().start(4, function(tmr:FlxTimer)
 				{
 					System.exit(0);
