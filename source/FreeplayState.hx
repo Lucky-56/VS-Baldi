@@ -129,7 +129,7 @@ class FreeplayState extends MusicBeatState
 		
 		for (i in 0...songs.length)
 		{
-			var songText:Skebeep = new Skebeep(false);
+			var songText:Skebeep = new Skebeep();
 			songText.setPosition(0, (70 * i) + 30);
 			songText.text = songs[i].songName;
 			songText.isMenuItem = true;
@@ -401,7 +401,7 @@ class FreeplayState extends MusicBeatState
 
 		iconArray[curSelected].alpha = 1;
 
-		var comicSans:FlxBitmapFont = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans.png'),Paths.font('bitmap/comic-sans.fnt'));
+		var comicSans:FlxBitmapFont = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans-without-underline.png'),Paths.font('bitmap/comic-sans-without-underline.fnt'));
 		var comicSansUnderlined:FlxBitmapFont = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans-underlined.png'),Paths.font('bitmap/comic-sans-underlined.fnt'));
 		
 		for (item in grpSongs.members)

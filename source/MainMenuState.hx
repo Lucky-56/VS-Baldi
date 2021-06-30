@@ -129,7 +129,7 @@ class MainMenuState extends MusicBeatState
 		exitButton.antialiasing = false;
 		menuItems.add(exitButton);
 
-		var versionStuff:Skebeep = new Skebeep(false);
+		var versionStuff:Skebeep = new Skebeep(false, true);
 		versionStuff.setPosition(930, 166);
 		versionStuff.text = baldiVer;
 		versionStuff.scale.set(3, 3);

@@ -395,7 +395,7 @@ class Skebeep extends FlxBitmapText
 	// menu Shit
 	public var isMenuItem:Bool = false;
 
-	public function new(?underlined:Bool = false)
+	public function new(?underlined:Bool = false, ?useOldFont:Bool = false)
 	{
 		var font:FlxBitmapFont = 
 		if(underlined)
@@ -403,7 +403,10 @@ class Skebeep extends FlxBitmapText
 			this.font = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans-underlined.png'),Paths.font('bitmap/comic-sans-underlined.fnt'));
 		}else
 		{
-			this.font = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans.png'),Paths.font('bitmap/comic-sans.fnt'));
+			if(useOldFont)
+				this.font = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans.png'),Paths.font('bitmap/comic-sans.fnt'));
+			else
+				this.font = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans-without-underline.png'),Paths.font('bitmap/comic-sans-without-underline.fnt'));
 		}
 
 		super();

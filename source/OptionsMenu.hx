@@ -110,7 +110,7 @@ class OptionsMenu extends MusicBeatState
 
 		for (i in 0...options.length)
 		{
-			var controlLabel:Skebeep = new Skebeep(false);
+			var controlLabel:Skebeep = new Skebeep();
 			controlLabel.setPosition(0, (70 * i) + 30);
 			controlLabel.text = options[i].getName();
 			controlLabel.isMenuItem = true;
@@ -157,7 +157,7 @@ class OptionsMenu extends MusicBeatState
 				grpControls.clear();
 				for (i in 0...options.length)
 				{
-					var controlLabel:Skebeep = new Skebeep(false);
+					var controlLabel:Skebeep = new Skebeep();
 					controlLabel.setPosition(0, (70 * i) + 30);
 					controlLabel.text = options[i].getName();
 					controlLabel.isMenuItem = true;
@@ -272,7 +272,7 @@ class OptionsMenu extends MusicBeatState
 					grpControls.clear();
 					for (i in 0...currentSelectedCat.getOptions().length)
 						{
-							var controlLabel:Skebeep = new Skebeep(false);			
+							var controlLabel:Skebeep = new Skebeep();			
 							controlLabel.setPosition(0, (70 * i) + 30);
 							controlLabel.text = currentSelectedCat.getOptions()[i].getDisplay();
 							controlLabel.isMenuItem = true;
@@ -326,17 +326,22 @@ class OptionsMenu extends MusicBeatState
 
 		var bullShit:Int = 0;
 
+		var comicSans:FlxBitmapFont = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans-without-underline.png'),Paths.font('bitmap/comic-sans-without-underline.fnt'));
+		var comicSansUnderlined:FlxBitmapFont = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans-underlined.png'),Paths.font('bitmap/comic-sans-underlined.fnt'));
+		
 		for (item in grpControls.members)
 		{
 			item.myID = bullShit - curSelected;
 			bullShit++;
 
 			item.alpha = 0.6;
+			item.font = comicSans;
 			// item.setGraphicSize(Std.int(item.width * 0.8));
 
 			if (item.myID == 0)
 			{
 				item.alpha = 1;
+				item.font = comicSansUnderlined;
 				// item.setGraphicSize(Std.int(item.width));
 			}
 		}
