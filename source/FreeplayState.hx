@@ -37,7 +37,6 @@ class FreeplayState extends MusicBeatState
 	var intendedScore:Int = 0;
 	var combo:String = '';
 
-	private var comicSans:FlxBitmapFont = FlxBitmapFont.fromAngelCode(Paths.image('comic-sans'),Paths.file('images/comic-sans.fnt'));
 	private var grpSongs:FlxTypedGroup<Skebeep>;
 	private var curPlaying:Bool = false;
 
@@ -130,7 +129,7 @@ class FreeplayState extends MusicBeatState
 		
 		for (i in 0...songs.length)
 		{
-			var songText:Skebeep = new Skebeep(comicSans);
+			var songText:Skebeep = new Skebeep(false);
 			songText.setPosition(0, (70 * i) + 30);
 			songText.text = songs[i].songName;
 			songText.isMenuItem = true;
@@ -402,17 +401,22 @@ class FreeplayState extends MusicBeatState
 
 		iconArray[curSelected].alpha = 1;
 
+		var comicSans:FlxBitmapFont = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans.png'),Paths.font('bitmap/comic-sans.fnt'));
+		var comicSansUnderlined:FlxBitmapFont = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans-underlined.png'),Paths.font('bitmap/comic-sans-underlined.fnt'));
+		
 		for (item in grpSongs.members)
 		{
 			item.myID = bullShit - curSelected;
 			bullShit++;
 
 			item.alpha = 0.6;
+			item.font = comicSans;
 			// item.setGraphicSize(Std.int(item.width * 0.8));
 
 			if (item.myID == 0)
 			{
 				item.alpha = 1;
+				item.font = comicSansUnderlined;
 				// item.setGraphicSize(Std.int(item.width));
 			}
 		}

@@ -1,5 +1,6 @@
 package;
 
+import Alphabet.Skebeep;
 import flixel.input.gamepad.FlxGamepad;
 import Controls.KeyboardScheme;
 import flixel.FlxG;
@@ -128,11 +129,10 @@ class MainMenuState extends MusicBeatState
 		exitButton.antialiasing = false;
 		menuItems.add(exitButton);
 
-		var versionStuff:FlxText = new FlxText(930, 166, 0, baldiVer, 18);
-		versionStuff.setFormat("Comic Sans MS", 18, FlxColor.BLACK, LEFT);
-		versionStuff.antialiasing = false;
-		versionStuff.scale.x = 3;
-		versionStuff.scale.y = 3;
+		var versionStuff:Skebeep = new Skebeep(false);
+		versionStuff.setPosition(930, 166);
+		versionStuff.text = baldiVer;
+		versionStuff.scale.set(3, 3);
 		versionStuff.scrollFactor.set();
 		add(versionStuff);
 

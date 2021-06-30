@@ -1,5 +1,9 @@
 package;
 
+import flixel.util.FlxColor;
+import flixel.math.FlxPoint;
+import openfl.display.BitmapData;
+import flixel.graphics.frames.FlxBitmapFont;
 import flixel.text.FlxBitmapText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -390,6 +394,39 @@ class Skebeep extends FlxBitmapText
 	public var myID:Int;
 	// menu Shit
 	public var isMenuItem:Bool = false;
+
+	public function new(?underlined:Bool = false)
+	{
+		var font:FlxBitmapFont = 
+		if(underlined)
+		{
+			this.font = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans-underlined.png'),Paths.font('bitmap/comic-sans-underlined.fnt'));
+		}else
+		{
+			this.font = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans.png'),Paths.font('bitmap/comic-sans.fnt'));
+		}
+
+		super();
+
+		width = fieldWidth = 2;
+		alpha = 1;
+
+		this.font = (font == null) ? FlxBitmapFont.getDefaultFont() : font;
+
+		shadowOffset = FlxPoint.get(1, 1);
+
+		if (FlxG.renderBlit)
+		{
+			pixels = new BitmapData(1, 1, true, FlxColor.TRANSPARENT);
+		}
+		else
+		{
+			textData = [];
+
+			textDrawData = [];
+			borderDrawData = [];
+		}
+	}
 
 	override function update(elapsed:Float)
 	{

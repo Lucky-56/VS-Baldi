@@ -84,7 +84,6 @@ class OptionsMenu extends MusicBeatState
 	public var acceptInput:Bool = true;
 
 	private var currentDescription:String = "";
-	private var comicSans:FlxBitmapFont = FlxBitmapFont.fromAngelCode(Paths.image('comic-sans'),Paths.file('images/comic-sans.fnt'));
 	private var grpControls:FlxTypedGroup<Skebeep>;
 	public static var versionShit:FlxText;
 
@@ -111,7 +110,7 @@ class OptionsMenu extends MusicBeatState
 
 		for (i in 0...options.length)
 		{
-			var controlLabel:Skebeep = new Skebeep(comicSans);
+			var controlLabel:Skebeep = new Skebeep(false);
 			controlLabel.setPosition(0, (70 * i) + 30);
 			controlLabel.text = options[i].getName();
 			controlLabel.isMenuItem = true;
@@ -158,7 +157,7 @@ class OptionsMenu extends MusicBeatState
 				grpControls.clear();
 				for (i in 0...options.length)
 				{
-					var controlLabel:Skebeep = new Skebeep(comicSans);
+					var controlLabel:Skebeep = new Skebeep(false);
 					controlLabel.setPosition(0, (70 * i) + 30);
 					controlLabel.text = options[i].getName();
 					controlLabel.isMenuItem = true;
@@ -273,7 +272,7 @@ class OptionsMenu extends MusicBeatState
 					grpControls.clear();
 					for (i in 0...currentSelectedCat.getOptions().length)
 						{
-							var controlLabel:Skebeep = new Skebeep(FlxBitmapFont.fromAngelCode(Paths.image('comic-sans'),Paths.file('images/comic-sans.fnt')));			
+							var controlLabel:Skebeep = new Skebeep(false);			
 							controlLabel.setPosition(0, (70 * i) + 30);
 							controlLabel.text = currentSelectedCat.getOptions()[i].getDisplay();
 							controlLabel.isMenuItem = true;
