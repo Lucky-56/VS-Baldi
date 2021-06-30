@@ -1,5 +1,6 @@
 package;
 
+import flixel.input.mouse.FlxMouseEventManager;
 import flixel.graphics.frames.FlxBitmapFont;
 import Alphabet.Skebeep;
 import flixel.addons.display.FlxBackdrop;
@@ -38,6 +39,7 @@ class FreeplayState extends MusicBeatState
 	var combo:String = '';
 
 	private var grpSongs:FlxTypedGroup<Skebeep>;
+	private var backButton:FlxSprite;
 	private var curPlaying:Bool = false;
 
 	private var iconArray:Array<HealthIcon> = [];
@@ -111,6 +113,11 @@ class FreeplayState extends MusicBeatState
 
 		// LOAD CHARACTERS
 
+		var backButtonForMouse:FlxSprite = new FlxSprite(160, 0).makeGraphic(64, 64);
+		backButtonForMouse.scrollFactor.set();
+		add(backButtonForMouse);
+		FlxMouseEventManager.add(backButtonForMouse, onMouseDown, null, onMouseOver, onMouseOut);
+		
 		var menuBG:FlxBackdrop = new FlxBackdrop(Paths.image("wall"));
 		menuBG.antialiasing = true;
 		add(menuBG);
@@ -124,6 +131,15 @@ class FreeplayState extends MusicBeatState
 
 		grpSongs = new FlxTypedGroup<Skebeep>();
 		add(grpSongs);
+
+		backButton = new FlxSprite();
+		backButton.frames = Paths.getSparrowAtlas('MainMenuButtons');
+		backButton.animation.addByPrefix('idle', "return clear off", 24);
+		backButton.animation.addByPrefix('selected', "return clear on", 24);
+		backButton.animation.play('idle');
+		backButton.setPosition(160, 0);
+		backButton.scrollFactor.set();
+		add(backButton);
 
 		FlxG.camera.pixelPerfectRender = true;
 		
@@ -224,22 +240,21 @@ class FreeplayState extends MusicBeatState
 	}
 
 	var mouse:Bool = false;
+	var backSel:Bool = false;
 
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
 		if (FlxG.sound.music.volume < 0.7)
-		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-		}
 
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, 0.4));
 
 		if (Math.abs(lerpScore - intendedScore) <= 10)
 			lerpScore = intendedScore;
 
-		scoreText.text = "PERSONAL BEST:" + lerpScore;
+		scoreText.text = "Score:" + lerpScore;
 		comboText.text = combo + '\n';
 
 		if (FlxG.mouse.justMoved || FlxG.mouse.justPressed || FlxG.mouse.justPressedMiddle || FlxG.mouse.justPressedRight || FlxG.mouse.wheel != 0)
@@ -285,47 +300,38 @@ class FreeplayState extends MusicBeatState
 		}
 
 		if (FlxG.keys.justPressed.LEFT)
+		{
+			switchFromMouse();
 			changeDiff(-1);
+		}
 		if (FlxG.keys.justPressed.RIGHT)
+		{
+			switchFromMouse();
 			changeDiff(1);
+		}
 
 		if (controls.BACK)
 		{
+			switchFromMouse();
 			FlxG.sound.music.stop();
+			FlxG.sound.play(Paths.sound('cancelMenu'));
 			FlxG.switchState(new PlayMenuState());
 		}
 
 		if (controls.ACCEPT)
 		{
-			// adjusting the song name to be compatible
-			var songFormat = StringTools.replace(songs[curSelected].songName, " ", "-");
-			switch (songFormat) {
-				case 'Dad-Battle': songFormat = 'Dadbattle';
-				case 'Philly-Nice': songFormat = 'Philly';
-			}
-			var hmm;
-			try
-			{
-				hmm = songData.get(songs[curSelected].songName)[curDifficulty];
-				if (hmm == null)
-					return;
-			}
-			catch(ex)
-			{
-				return;
-			}
-
-
-			PlayState.SONG = hmm;
-			PlayState.isStoryMode = false;
-			PlayState.storyDifficulty = curDifficulty;
-			PlayState.storyWeek = songs[curSelected].week;
-			trace('CUR WEEK' + PlayState.storyWeek);
-			LoadingState.loadAndSwitchState(new PlayState());
+			switchFromMouse();
+			startSong();
 		}
 
 		if(mouse)
 		{
+			if(FlxG.mouse.justPressed && !backSel)
+				startSong();
+
+			if(FlxG.mouse.justPressedRight)
+				changeDiff(1);
+
 			if(FlxG.mouse.wheel > 0)
 				changeSelection(-1);
 
@@ -423,6 +429,35 @@ class FreeplayState extends MusicBeatState
 		}
 	}
 
+	function startSong()
+	{
+		// adjusting the song name to be compatible
+		var songFormat = StringTools.replace(songs[curSelected].songName, " ", "-");
+		switch (songFormat) {
+			case 'Dad-Battle': songFormat = 'Dadbattle';
+			case 'Philly-Nice': songFormat = 'Philly';
+		}
+		var hmm;
+		try
+		{
+			hmm = songData.get(songs[curSelected].songName)[curDifficulty];
+			if (hmm == null)
+				return;
+		}
+		catch(ex)
+		{
+			return;
+		}
+
+
+		PlayState.SONG = hmm;
+		PlayState.isStoryMode = false;
+		PlayState.storyDifficulty = curDifficulty;
+		PlayState.storyWeek = songs[curSelected].week;
+		trace('CUR WEEK' + PlayState.storyWeek);
+		LoadingState.loadAndSwitchState(new PlayState());
+	}
+
 	function switchFromMouse()
 	{
 		changeSelection();
@@ -434,6 +469,26 @@ class FreeplayState extends MusicBeatState
 	{
 		FlxG.mouse.visible = true;
 		mouse = true;
+	}
+
+	function onMouseOver(spr:FlxSprite)
+	{
+		FlxG.sound.play(Paths.sound('scrollMenu'));
+		backButton.animation.play('selected');
+		backSel = true;
+	}
+
+	function onMouseOut(spr:FlxSprite)
+	{
+		backButton.animation.play('idle');
+		backSel = false;
+	}
+
+	function onMouseDown(spr:FlxSprite)
+	{
+		FlxG.sound.music.stop();
+		FlxG.sound.play(Paths.sound('cancelMenu'));
+		FlxG.switchState(new PlayMenuState());
 	}
 }
 
