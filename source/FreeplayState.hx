@@ -224,6 +224,8 @@ class FreeplayState extends MusicBeatState
 		}
 	}
 
+	var mouse:Bool = false;
+
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
@@ -241,9 +243,10 @@ class FreeplayState extends MusicBeatState
 		scoreText.text = "PERSONAL BEST:" + lerpScore;
 		comboText.text = combo + '\n';
 
-		var upP = FlxG.keys.justPressed.UP;
-		var downP = FlxG.keys.justPressed.DOWN;
-		var accepted = controls.ACCEPT;
+		if (FlxG.mouse.justMoved || FlxG.mouse.justPressed || FlxG.mouse.justPressedMiddle || FlxG.mouse.justPressedRight || FlxG.mouse.wheel != 0)
+		{
+			switchToMouse();
+		}
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
@@ -251,28 +254,34 @@ class FreeplayState extends MusicBeatState
 		{
 			if (gamepad.justPressed.DPAD_UP)
 			{
+				switchFromMouse();
 				changeSelection(-1);
 			}
 			if (gamepad.justPressed.DPAD_DOWN)
 			{
+				switchFromMouse();
 				changeSelection(1);
 			}
 			if (gamepad.justPressed.DPAD_LEFT)
 			{
+				switchFromMouse();
 				changeDiff(-1);
 			}
 			if (gamepad.justPressed.DPAD_RIGHT)
 			{
+				switchFromMouse();
 				changeDiff(1);
 			}
 		}
 
-		if (upP)
+		if (FlxG.keys.justPressed.UP)
 		{
+			switchFromMouse();
 			changeSelection(-1);
 		}
-		if (downP)
+		if (FlxG.keys.justPressed.DOWN)
 		{
+			switchFromMouse();
 			changeSelection(1);
 		}
 
@@ -286,7 +295,7 @@ class FreeplayState extends MusicBeatState
 			FlxG.switchState(new PlayMenuState());
 		}
 
-		if (accepted)
+		if (controls.ACCEPT)
 		{
 			// adjusting the song name to be compatible
 			var songFormat = StringTools.replace(songs[curSelected].songName, " ", "-");
@@ -313,6 +322,15 @@ class FreeplayState extends MusicBeatState
 			PlayState.storyWeek = songs[curSelected].week;
 			trace('CUR WEEK' + PlayState.storyWeek);
 			LoadingState.loadAndSwitchState(new PlayState());
+		}
+
+		if(mouse)
+		{
+			if(FlxG.mouse.wheel > 0)
+				changeSelection(-1);
+
+			if(FlxG.mouse.wheel < 0)
+				changeSelection(1);
 		}
 	}
 
@@ -398,6 +416,19 @@ class FreeplayState extends MusicBeatState
 				// item.setGraphicSize(Std.int(item.width));
 			}
 		}
+	}
+
+	function switchFromMouse()
+	{
+		changeSelection();
+		FlxG.mouse.visible = false;
+		mouse = false;
+	}
+	
+	function switchToMouse()
+	{
+		FlxG.mouse.visible = true;
+		mouse = true;
 	}
 }
 
