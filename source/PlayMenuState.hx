@@ -85,7 +85,7 @@ class PlayMenuState extends MusicBeatState
 		var storyText1:Skebeep = new Skebeep();
 		storyText1.alignment = CENTER;
 		storyText1.setPosition(0, 115);
-		storyText1.text = "Story Mode:\n";
+		storyText1.text = "Story;Mode:\n";
 		storyText1.scale.set(2, 2);
 		storyText1.updateHitbox();
 		storyText1.screenCenter(X);
@@ -95,7 +95,7 @@ class PlayMenuState extends MusicBeatState
 		var storyText2:Skebeep = new Skebeep();
 		storyText2.alignment = CENTER;
 		storyText2.setPosition(0, storyText1.y + 66);
-		storyText2.text = "Beat Baldi and his\n";
+		storyText2.text = "Beat;Baldi;and;his\n";
 		storyText2.scale.set(2, 2);
 		storyText2.updateHitbox();
 		storyText2.screenCenter(X);
@@ -105,7 +105,7 @@ class PlayMenuState extends MusicBeatState
 		var storyText3:Skebeep = new Skebeep();
 		storyText3.alignment = CENTER;
 		storyText3.setPosition(0, storyText2.y + 66);
-		storyText3.text = "friends in a rap battle!\n";
+		storyText3.text = "friends;in;a;rap;battle!\n";
 		storyText3.scale.set(2, 2);
 		storyText3.updateHitbox();
 		storyText3.screenCenter(X);
@@ -126,7 +126,7 @@ class PlayMenuState extends MusicBeatState
 		var freeplayText1:Skebeep = new Skebeep();
 		freeplayText1.alignment = CENTER;
 		freeplayText1.setPosition(0, 474);
-		freeplayText1.text = "Freeplay Mode:\n";
+		freeplayText1.text = "Freeplay;Mode:\n";
 		freeplayText1.scale.set(2, 2);
 		freeplayText1.updateHitbox();
 		freeplayText1.screenCenter(X);
@@ -136,7 +136,7 @@ class PlayMenuState extends MusicBeatState
 		var freeplayText2:Skebeep = new Skebeep();
 		freeplayText2.alignment = CENTER;
 		freeplayText2.setPosition(0, freeplayText1.y + 66);
-		freeplayText2.text = "Choose what song\n";
+		freeplayText2.text = "Choose;what;song\n";
 		freeplayText2.scale.set(2, 2);
 		freeplayText2.updateHitbox();
 		freeplayText2.screenCenter(X);
@@ -146,7 +146,7 @@ class PlayMenuState extends MusicBeatState
 		var freeplayText3:Skebeep = new Skebeep();
 		freeplayText3.alignment = CENTER;
 		freeplayText3.setPosition(0, freeplayText2.y + 66);
-		freeplayText3.text = "you want to play!\n";
+		freeplayText3.text = "you;want;to;play!\n";
 		freeplayText3.scale.set(2, 2);
 		freeplayText3.updateHitbox();
 		freeplayText3.screenCenter(X);

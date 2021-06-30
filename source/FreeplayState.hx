@@ -131,7 +131,7 @@ class FreeplayState extends MusicBeatState
 		{
 			var songText:Skebeep = new Skebeep();
 			songText.setPosition(0, (70 * i) + 30);
-			songText.text = songs[i].songName;
+			songText.text = songs[i].songName.replace(" ", ";");
 			songText.isMenuItem = true;
 			songText.myID = i;
 			songText.scale.set(3, 3);

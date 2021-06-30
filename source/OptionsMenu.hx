@@ -20,6 +20,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.utils.Assets;
 
+using StringTools;
 class OptionsMenu extends MusicBeatState
 {
 	public static var instance:OptionsMenu;
@@ -112,7 +113,7 @@ class OptionsMenu extends MusicBeatState
 		{
 			var controlLabel:Skebeep = new Skebeep();
 			controlLabel.setPosition(0, (70 * i) + 30);
-			controlLabel.text = options[i].getName();
+			controlLabel.text = options[i].getName().replace(" ", ";");
 			controlLabel.isMenuItem = true;
 			controlLabel.myID = i;
 			controlLabel.scale.set(3, 3);
@@ -138,6 +139,8 @@ class OptionsMenu extends MusicBeatState
 		FlxTween.tween(blackBorder,{y: FlxG.height - 18},2, {ease: FlxEase.elasticInOut});
 
 		super.create();
+
+		changeSelection();
 	}
 
 	var isCat:Bool = false;
@@ -159,7 +162,7 @@ class OptionsMenu extends MusicBeatState
 				{
 					var controlLabel:Skebeep = new Skebeep();
 					controlLabel.setPosition(0, (70 * i) + 30);
-					controlLabel.text = options[i].getName();
+					controlLabel.text = options[i].getName().replace(" ", ";");
 					controlLabel.isMenuItem = true;
 					controlLabel.myID = i;
 					controlLabel.scale.set(3, 3);
@@ -274,7 +277,7 @@ class OptionsMenu extends MusicBeatState
 						{
 							var controlLabel:Skebeep = new Skebeep();			
 							controlLabel.setPosition(0, (70 * i) + 30);
-							controlLabel.text = currentSelectedCat.getOptions()[i].getDisplay();
+							controlLabel.text = currentSelectedCat.getOptions()[i].getDisplay().replace(" ", ";");
 							controlLabel.isMenuItem = true;
 							controlLabel.myID = i;
 							controlLabel.scale.set(3, 3);
