@@ -392,20 +392,32 @@ class Skebeep extends FlxBitmapText
 	 * My ID lol.
 	 */
 	public var myID:Int;
-	// menu Shit
+
+	// menu shit
 	public var isMenuItem:Bool = false;
 
-	public function new(?underlined:Bool = false, ?useOldFont:Bool = false)
+	/**
+	 * Constructs a new text field component.
+	 * But with comic sans.
+	 * 0 = Comic Sans 18px
+	 * 1 = Comic Sans underlined 18px
+	 * 2 = Comic Sans old 18px
+	 * 3 = Comic Sans 9px
+	 * 
+	 * @param 	specialStyle	Optional parameter for component's font style
+	 */
+	public function new(?specialStyle:Int = 0)
 	{
 		var font:FlxBitmapFont = 
-		if(underlined)
+		switch (specialStyle)
 		{
-			this.font = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans-underlined.png'),Paths.font('bitmap/comic-sans-underlined.fnt'));
-		}else
-		{
-			if(useOldFont)
+			case 1:
+				this.font = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans-underlined.png'),Paths.font('bitmap/comic-sans-underlined.fnt'));
+			case 2:
 				this.font = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans.png'),Paths.font('bitmap/comic-sans.fnt'));
-			else
+			case 3:
+				this.font = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans-small.png'),Paths.font('bitmap/comic-sans-small.fnt'));
+			case _:
 				this.font = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans-without-underline.png'),Paths.font('bitmap/comic-sans-without-underline.fnt'));
 		}
 

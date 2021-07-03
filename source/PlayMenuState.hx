@@ -42,6 +42,8 @@ class PlayMenuState extends MusicBeatState
 
 	var menuItemsForMouse:FlxTypedGroup<FlxSprite>;
 
+	private var backButton:FlxSprite;
+
 	var leaving:Bool = false;
 
 	override function create()
@@ -83,6 +85,7 @@ class PlayMenuState extends MusicBeatState
 		grpStory.add(storyButton);
 
 		var storyText1:Skebeep = new Skebeep();
+		storyText1.color = FlxColor.BLACK;
 		storyText1.alignment = CENTER;
 		storyText1.setPosition(0, 115);
 		storyText1.text = "Story;Mode:\n";
@@ -93,6 +96,7 @@ class PlayMenuState extends MusicBeatState
 		grpStory.add(storyText1);
 
 		var storyText2:Skebeep = new Skebeep();
+		storyText2.color = FlxColor.BLACK;
 		storyText2.alignment = CENTER;
 		storyText2.setPosition(0, storyText1.y + 66);
 		storyText2.text = "Beat;Baldi;and;his\n";
@@ -103,6 +107,7 @@ class PlayMenuState extends MusicBeatState
 		grpStory.add(storyText2);
 
 		var storyText3:Skebeep = new Skebeep();
+		storyText3.color = FlxColor.BLACK;
 		storyText3.alignment = CENTER;
 		storyText3.setPosition(0, storyText2.y + 66);
 		storyText3.text = "friends;in;a;rap;battle!\n";
@@ -124,6 +129,7 @@ class PlayMenuState extends MusicBeatState
 		grpFreeplay.add(freeplayButton);
 
 		var freeplayText1:Skebeep = new Skebeep();
+		freeplayText1.color = FlxColor.BLACK;
 		freeplayText1.alignment = CENTER;
 		freeplayText1.setPosition(0, 474);
 		freeplayText1.text = "Freeplay;Mode:\n";
@@ -134,6 +140,7 @@ class PlayMenuState extends MusicBeatState
 		grpFreeplay.add(freeplayText1);
 
 		var freeplayText2:Skebeep = new Skebeep();
+		freeplayText2.color = FlxColor.BLACK;
 		freeplayText2.alignment = CENTER;
 		freeplayText2.setPosition(0, freeplayText1.y + 66);
 		freeplayText2.text = "Choose;what;song\n";
@@ -144,6 +151,7 @@ class PlayMenuState extends MusicBeatState
 		grpFreeplay.add(freeplayText2);
 
 		var freeplayText3:Skebeep = new Skebeep();
+		freeplayText3.color = FlxColor.BLACK;
 		freeplayText3.alignment = CENTER;
 		freeplayText3.setPosition(0, freeplayText2.y + 66);
 		freeplayText3.text = "you;want;to;play!\n";
@@ -155,7 +163,7 @@ class PlayMenuState extends MusicBeatState
 
 		grpExit = new FlxTypedSpriteGroup<FlxSprite>();
 
-		var backButton:FlxSprite = new FlxSprite();
+		backButton = new FlxSprite();
 		backButton.frames = Paths.getSparrowAtlas('MainMenuButtons');
 		backButton.animation.addByPrefix('idle', "return clear off", 24);
 		backButton.animation.addByPrefix('selected', "return clear on", 24);
@@ -242,6 +250,13 @@ class PlayMenuState extends MusicBeatState
 				switchFromMouse();
 				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 				changeItem(1);
+			}
+
+			if (controls.BACK)
+			{
+				switchFromMouse();
+				backButton.animation.play('selected');
+				FlxG.sound.play(Paths.sound('cancelMenu'));
 			}
 
 			if (controls.ACCEPT)

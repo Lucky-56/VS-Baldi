@@ -129,7 +129,8 @@ class MainMenuState extends MusicBeatState
 		exitButton.antialiasing = false;
 		menuItems.add(exitButton);
 
-		var versionStuff:Skebeep = new Skebeep(false, true);
+		var versionStuff:Skebeep = new Skebeep(2);
+		versionStuff.color = FlxColor.BLACK;
 		versionStuff.setPosition(930, 166);
 		versionStuff.text = baldiVer;
 		versionStuff.scale.set(3, 3);

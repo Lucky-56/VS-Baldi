@@ -112,6 +112,7 @@ class OptionsMenu extends MusicBeatState
 		for (i in 0...options.length)
 		{
 			var controlLabel:Skebeep = new Skebeep();
+			controlLabel.color = FlxColor.BLACK;
 			controlLabel.setPosition(0, (70 * i) + 30);
 			controlLabel.text = options[i].getName().replace(" ", ";");
 			controlLabel.isMenuItem = true;
@@ -161,6 +162,7 @@ class OptionsMenu extends MusicBeatState
 				for (i in 0...options.length)
 				{
 					var controlLabel:Skebeep = new Skebeep();
+					controlLabel.color = FlxColor.BLACK;
 					controlLabel.setPosition(0, (70 * i) + 30);
 					controlLabel.text = options[i].getName().replace(" ", ";");
 					controlLabel.isMenuItem = true;
@@ -270,7 +272,7 @@ class OptionsMenu extends MusicBeatState
 				if (isCat)
 				{
 					if (currentSelectedCat.getOptions()[curSelected].press()) {
-						grpControls.members[curSelected].text = currentSelectedCat.getOptions()[curSelected].getDisplay();
+						grpControls.members[curSelected].text = currentSelectedCat.getOptions()[curSelected].getDisplay().replace(" ", ";");
 						trace(currentSelectedCat.getOptions()[curSelected].getDisplay());
 					}
 				}
@@ -281,7 +283,8 @@ class OptionsMenu extends MusicBeatState
 					grpControls.clear();
 					for (i in 0...currentSelectedCat.getOptions().length)
 						{
-							var controlLabel:Skebeep = new Skebeep();			
+							var controlLabel:Skebeep = new Skebeep();
+							controlLabel.color = FlxColor.BLACK;
 							controlLabel.setPosition(0, (70 * i) + 30);
 							controlLabel.text = currentSelectedCat.getOptions()[i].getDisplay().replace(" ", ";");
 							controlLabel.isMenuItem = true;
