@@ -29,11 +29,13 @@ class FreeplayState extends MusicBeatState
 
 	var selector:FlxText;
 	var curSelected:Int = 0;
-	var curDifficulty:Int = 1;
+	var curDifficulty:Int = FlxG.save.data.difficulty;
 
-	var scoreText:FlxText;
-	var comboText:FlxText;
-	var diffText:FlxText;
+	var informationText:FlxTypedGroup<Skebeep>;
+	var informationTextLine1:Skebeep;
+	var informationTextLine2:Skebeep;
+
+	var icon:String = "";
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
 	var combo:String = '';
@@ -41,8 +43,6 @@ class FreeplayState extends MusicBeatState
 	private var grpSongs:FlxTypedGroup<Skebeep>;
 	private var backButton:FlxSprite;
 	private var curPlaying:Bool = false;
-
-	private var iconArray:Array<HealthIcon> = [];
 
 	public static var songData:Map<String,Array<SwagSong>> = [];
 
@@ -129,9 +129,6 @@ class FreeplayState extends MusicBeatState
 		bars.antialiasing = false;
 		add(bars);
 
-		grpSongs = new FlxTypedGroup<Skebeep>();
-		add(grpSongs);
-
 		backButton = new FlxSprite();
 		backButton.frames = Paths.getSparrowAtlas('MainMenuButtons');
 		backButton.animation.addByPrefix('idle', "return clear off", 24);
@@ -141,50 +138,46 @@ class FreeplayState extends MusicBeatState
 		backButton.scrollFactor.set();
 		add(backButton);
 
-		FlxG.camera.pixelPerfectRender = true;
-		
+		grpSongs = new FlxTypedGroup<Skebeep>();
+		add(grpSongs);
+
 		for (i in 0...songs.length)
 		{
 			var songText:Skebeep = new Skebeep();
-			songText.setPosition(0, (70 * i) + 30);
+			songText.color = FlxColor.BLACK;
 			songText.text = songs[i].songName.replace(" ", ";");
 			songText.isMenuItem = true;
 			songText.myID = i;
 			songText.scale.set(3, 3);
 			songText.updateHitbox();
-			songText.screenCenter(X);
+			songText.screenCenter();
 			grpSongs.add(songText);
-
-			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
-			icon.sprTracker = songText;
-
-			// using a FlxGroup is too much fuss!
-			iconArray.push(icon);
-			add(icon);
 
 			// songText.x += 40;
 			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
 			// songText.screenCenter(X);
 		}
 
-		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
-		// scoreText.autoSize = false;
-		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
-		// scoreText.alignment = RIGHT;
+		informationText = new FlxTypedGroup<Skebeep>();
+		add(informationText);
 
-		var scoreBG:FlxSprite = new FlxSprite(scoreText.x - 6, 0).makeGraphic(Std.int(FlxG.width * 0.35), 66, 0xFF000000);
-		scoreBG.alpha = 0.6;
-		add(scoreBG);
+		informationTextLine1 = new Skebeep(3);
+		informationTextLine1.color = FlxColor.BLACK;
+		informationTextLine1.screenCenter(X);
+		informationTextLine1.y = 400;
+		informationTextLine1.scale.set(2, 2);
+		informationTextLine1.updateHitbox();
+		informationTextLine1.scrollFactor.set();
+		informationText.add(informationTextLine1);
 
-		diffText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
-		diffText.font = scoreText.font;
-		add(diffText);
-
-		comboText = new FlxText(diffText.x + 100, diffText.y, 0, "", 24);
-		comboText.font = diffText.font;
-		add(comboText);
-
-		add(scoreText);
+		informationTextLine2 = new Skebeep(3);
+		informationTextLine2.color = FlxColor.BLACK;
+		informationTextLine2.screenCenter(X);
+		informationTextLine2.y = informationTextLine1.y + 20;
+		informationTextLine2.scale.set(2, 2);
+		informationTextLine2.updateHitbox();
+		informationTextLine2.scrollFactor.set();
+		informationText.add(informationTextLine2);
 
 		changeSelection();
 		changeDiff();
@@ -254,8 +247,11 @@ class FreeplayState extends MusicBeatState
 		if (Math.abs(lerpScore - intendedScore) <= 10)
 			lerpScore = intendedScore;
 
-		scoreText.text = "Score:" + lerpScore;
-		comboText.text = combo + '\n';
+		informationTextLine1.text = 'Score: $lerpScore ${CoolUtil.difficultyFromInt(curDifficulty).toUpperCase()} $combo';
+		informationTextLine1.screenCenter(X);
+
+		informationTextLine2.text = 'Opponent: $icon';
+		informationTextLine2.screenCenter(X);
 
 		if (FlxG.mouse.justMoved || FlxG.mouse.justPressed || FlxG.mouse.justPressedMiddle || FlxG.mouse.justPressedRight || FlxG.mouse.wheel != 0)
 		{
@@ -313,6 +309,7 @@ class FreeplayState extends MusicBeatState
 		if (controls.BACK)
 		{
 			switchFromMouse();
+			backButton.animation.play('selected');
 			FlxG.sound.music.stop();
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			FlxG.switchState(new PlayMenuState());
@@ -349,6 +346,9 @@ class FreeplayState extends MusicBeatState
 		if (curDifficulty > 3)
 			curDifficulty = 0;
 
+		FlxG.save.data.difficulty = curDifficulty;
+		FlxG.save.flush();
+
 		// adjusting the highscore song name to be compatible (changeDiff)
 		var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");
 		switch (songHighscore) {
@@ -360,7 +360,6 @@ class FreeplayState extends MusicBeatState
 		intendedScore = Highscore.getScore(songHighscore, curDifficulty);
 		combo = Highscore.getCombo(songHighscore, curDifficulty);
 		#end
-		diffText.text = CoolUtil.difficultyFromInt(curDifficulty).toUpperCase();
 	}
 
 	function changeSelection(change:Int = 0)
@@ -389,6 +388,7 @@ class FreeplayState extends MusicBeatState
 			case 'Philly-Nice': songHighscore = 'Philly';
 		}
 
+		icon = songs[curSelected].songCharacter;
 		#if !switch
 		intendedScore = Highscore.getScore(songHighscore, curDifficulty);
 		combo = Highscore.getCombo(songHighscore, curDifficulty);
@@ -400,13 +400,6 @@ class FreeplayState extends MusicBeatState
 		#end
 
 		var bullShit:Int = 0;
-
-		for (i in 0...iconArray.length)
-		{
-			iconArray[i].alpha = 0.6;
-		}
-
-		iconArray[curSelected].alpha = 1;
 
 		var comicSans:FlxBitmapFont = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans-without-underline.png'),Paths.font('bitmap/comic-sans-without-underline.fnt'));
 		var comicSansUnderlined:FlxBitmapFont = FlxBitmapFont.fromAngelCode(Paths.font('bitmap/comic-sans-underlined.png'),Paths.font('bitmap/comic-sans-underlined.fnt'));
