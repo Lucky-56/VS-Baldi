@@ -37,7 +37,6 @@ class PlayMenuState extends MusicBeatState
 
 	var grpStory:FlxTypedSpriteGroup<FlxSprite>;
 	var grpFreeplay:FlxTypedSpriteGroup<FlxSprite>;
-	var grpExit:FlxTypedSpriteGroup<FlxSprite>;
 	var menuItems:FlxTypedGroup<FlxTypedSpriteGroup<FlxSprite>>;
 
 	var menuItemsForMouse:FlxTypedGroup<FlxSprite>;
@@ -84,38 +83,17 @@ class PlayMenuState extends MusicBeatState
 		storyButton.scrollFactor.set();
 		grpStory.add(storyButton);
 
-		var storyText1:Skebeep = new Skebeep();
-		storyText1.color = FlxColor.BLACK;
-		storyText1.alignment = CENTER;
-		storyText1.setPosition(0, 115);
-		storyText1.text = "Story;Mode:\n";
-		storyText1.scale.set(2, 2);
-		storyText1.updateHitbox();
-		storyText1.screenCenter(X);
-		storyText1.scrollFactor.set();
-		grpStory.add(storyText1);
-
-		var storyText2:Skebeep = new Skebeep();
-		storyText2.color = FlxColor.BLACK;
-		storyText2.alignment = CENTER;
-		storyText2.setPosition(0, storyText1.y + 66);
-		storyText2.text = "Beat;Baldi;and;his\n";
-		storyText2.scale.set(2, 2);
-		storyText2.updateHitbox();
-		storyText2.screenCenter(X);
-		storyText2.scrollFactor.set();
-		grpStory.add(storyText2);
-
-		var storyText3:Skebeep = new Skebeep();
-		storyText3.color = FlxColor.BLACK;
-		storyText3.alignment = CENTER;
-		storyText3.setPosition(0, storyText2.y + 66);
-		storyText3.text = "friends;in;a;rap;battle!\n";
-		storyText3.scale.set(2, 2);
-		storyText3.updateHitbox();
-		storyText3.screenCenter(X);
-		storyText3.scrollFactor.set();
-		grpStory.add(storyText3);
+		var storyText:Skebeep = new Skebeep();
+		storyText.color = FlxColor.BLACK;
+		storyText.alignment = CENTER;
+		storyText.setPosition(0, 151);
+		storyText.lineSpacing = 7;
+		storyText.text = "Story;Mode:\nBeat;Baldi;and;his\nfriends;in;a;rap;battle!\n";
+		storyText.scale.set(2, 2);
+		storyText.updateHitbox();
+		storyText.screenCenter(X);
+		storyText.scrollFactor.set();
+		grpStory.add(storyText);
 
 		grpFreeplay = new FlxTypedSpriteGroup<FlxSprite>();
 
@@ -128,68 +106,40 @@ class PlayMenuState extends MusicBeatState
 		freeplayButton.scrollFactor.set();
 		grpFreeplay.add(freeplayButton);
 
-		var freeplayText1:Skebeep = new Skebeep();
-		freeplayText1.color = FlxColor.BLACK;
-		freeplayText1.alignment = CENTER;
-		freeplayText1.setPosition(0, 474);
-		freeplayText1.text = "Freeplay;Mode:\n";
-		freeplayText1.scale.set(2, 2);
-		freeplayText1.updateHitbox();
-		freeplayText1.screenCenter(X);
-		freeplayText1.scrollFactor.set();
-		grpFreeplay.add(freeplayText1);
-
-		var freeplayText2:Skebeep = new Skebeep();
-		freeplayText2.color = FlxColor.BLACK;
-		freeplayText2.alignment = CENTER;
-		freeplayText2.setPosition(0, freeplayText1.y + 66);
-		freeplayText2.text = "Choose;what;song\n";
-		freeplayText2.scale.set(2, 2);
-		freeplayText2.updateHitbox();
-		freeplayText2.screenCenter(X);
-		freeplayText2.scrollFactor.set();
-		grpFreeplay.add(freeplayText2);
-
-		var freeplayText3:Skebeep = new Skebeep();
-		freeplayText3.color = FlxColor.BLACK;
-		freeplayText3.alignment = CENTER;
-		freeplayText3.setPosition(0, freeplayText2.y + 66);
-		freeplayText3.text = "you;want;to;play!\n";
-		freeplayText3.scale.set(2, 2);
-		freeplayText3.updateHitbox();
-		freeplayText3.screenCenter(X);
-		freeplayText3.scrollFactor.set();
-		grpFreeplay.add(freeplayText3);
-
-		grpExit = new FlxTypedSpriteGroup<FlxSprite>();
-
-		backButton = new FlxSprite();
-		backButton.frames = Paths.getSparrowAtlas('MainMenuButtons');
-		backButton.animation.addByPrefix('idle', "return clear off", 24);
-		backButton.animation.addByPrefix('selected', "return clear on", 24);
-		backButton.animation.play('idle');
-		backButton.setPosition(160, 0);
-		backButton.scrollFactor.set();
-		grpExit.add(backButton);
+		var freeplayText:Skebeep = new Skebeep();
+		freeplayText.color = FlxColor.BLACK;
+		freeplayText.alignment = CENTER;
+		freeplayText.setPosition(0, 510);
+		freeplayText.lineSpacing = 7;
+		freeplayText.text = "Freeplay;Mode:\nChoose;what;song\nyou;want;to;play!\n";
+		freeplayText.scale.set(2, 2);
+		freeplayText.updateHitbox();
+		freeplayText.screenCenter(X);
+		freeplayText.scrollFactor.set();
+		grpFreeplay.add(freeplayText);
 
 		menuItemsForMouse = new FlxTypedGroup<FlxSprite>();
+		add(menuItemsForMouse);
 
 		var storyButtonForMouse:FlxSprite = new FlxSprite(storyButton.x,storyButton.y).makeGraphic(720, 210);
-		storyButtonForMouse.ID = 0;
 		storyButtonForMouse.scrollFactor.set();
+		storyButtonForMouse.ID = 0;
 		menuItemsForMouse.add(storyButtonForMouse);
 
 		var freeplayButtonForMouse:FlxSprite = new FlxSprite(560 - storyButton.x, 510 - storyButton.y).makeGraphic(720, 210);
-		freeplayButtonForMouse.ID = 1;
 		freeplayButtonForMouse.scrollFactor.set();
+		freeplayButtonForMouse.ID = 1;
 		menuItemsForMouse.add(freeplayButtonForMouse);
 
-		var backButtonForMouse:FlxSprite = new FlxSprite(160, 0).makeGraphic(64, 64);
-		backButtonForMouse.ID = 2;
-		backButtonForMouse.scrollFactor.set();
-		menuItemsForMouse.add(backButtonForMouse);
-
-		add(menuItemsForMouse);
+		backButton = new FlxSprite();
+		backButton.frames = Paths.getSparrowAtlas('MainMenuButtons');
+		backButton.animation.addByPrefix('idle', "return off", 24);
+		backButton.animation.addByPrefix('selected', "return on", 24);
+		backButton.animation.play('idle');
+		backButton.setPosition(160, 0);
+		backButton.scrollFactor.set();
+		backButton.ID = 2;
+		menuItemsForMouse.add(backButton);
 
 		menuItems = new FlxTypedGroup<FlxTypedSpriteGroup<FlxSprite>>();
 		add(menuItems);
@@ -198,8 +148,6 @@ class PlayMenuState extends MusicBeatState
 		menuItems.add(grpStory);
 		grpFreeplay.ID = 1;
 		menuItems.add(grpFreeplay);
-		grpExit.ID = 2;
-		menuItems.add(grpExit);
 
 		for (i in 0...menuItemsForMouse.length)
 			{
@@ -256,7 +204,7 @@ class PlayMenuState extends MusicBeatState
 			{
 				switchFromMouse();
 				backButton.animation.play('selected');
-				FlxG.sound.play(Paths.sound('cancelMenu'));
+				menuButton(2);
 			}
 
 			if (controls.ACCEPT)
@@ -356,34 +304,46 @@ class PlayMenuState extends MusicBeatState
 	function onMouseOver(spr:FlxSprite)
 	{
 		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
-		//spr.animation.play('selected');
-		menuItems.forEach(function(grp:FlxTypedSpriteGroup<FlxSprite>){
-			if(grp.ID == spr.ID)
-			{
-				grp.forEachOfType(FlxSprite, function(spr:FlxSprite){
-					spr.animation.play('selected');
-				});
-				grp.forEachOfType(Skebeep, function(txt:Skebeep){
-					txt.font = comicSansUnderlined;
-				});
-			}
-		});
+		if (spr.ID == 2)
+		{
+			spr.animation.play('selected');
+		}
+		else
+		{
+			menuItems.forEach(function(grp:FlxTypedSpriteGroup<FlxSprite>){
+				if(grp.ID == spr.ID)
+				{
+					grp.forEachOfType(FlxSprite, function(spr:FlxSprite){
+						spr.animation.play('selected');
+					});
+					grp.forEachOfType(Skebeep, function(txt:Skebeep){
+						txt.font = comicSansUnderlined;
+					});
+				}
+			});
+		}
 	}
 
 	function onMouseOut(spr:FlxSprite)
 	{
-		//spr.animation.play('idle');
-		menuItems.forEach(function(grp:FlxTypedSpriteGroup<FlxSprite>){
-			if(grp.ID == spr.ID)
+		if (spr.ID == 2)
 			{
-				grp.forEachOfType(FlxSprite, function(spr:FlxSprite){
-					spr.animation.play('idle');
-				});
-				grp.forEachOfType(Skebeep, function(txt:Skebeep){
-					txt.font = comicSans;
+				spr.animation.play('idle');
+			}
+			else
+			{
+				menuItems.forEach(function(grp:FlxTypedSpriteGroup<FlxSprite>){
+					if(grp.ID == spr.ID)
+					{
+						grp.forEachOfType(FlxSprite, function(spr:FlxSprite){
+							spr.animation.play('idle');
+						});
+						grp.forEachOfType(Skebeep, function(txt:Skebeep){
+							txt.font = comicSans;
+						});
+					}
 				});
 			}
-		});
 	}
 
 	function onMouseDown(spr:FlxSprite)
