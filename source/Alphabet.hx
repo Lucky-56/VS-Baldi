@@ -393,8 +393,24 @@ class Skebeep extends FlxBitmapText
 	 */
 	public var myID:Int;
 
-	// menu shit
+	/**
+	 * menu shit
+	 */
 	public var isMenuItem:Bool = false;
+
+	/**
+	 * if menu shit should do a funny move
+	 * 
+	 * Condition: isMenuItem = true
+	 */
+	 public var doFunnyMove:Bool = false;
+
+	/**
+	 * if menu shit finished the funny move
+	 * 
+	 * Condition: isMenuItem = true
+	 */
+	public var finishedFunnyMove:Bool = false;
 
 	/**
 	 * Constructs a new text field component.
@@ -450,6 +466,16 @@ class Skebeep extends FlxBitmapText
 			var scaledY = FlxMath.remapToRange(myID, 0, 1, 0, 1.3);
 
 			y = FlxMath.lerp(y, (scaledY * 120) + (FlxG.height * 0.48), 0.30);
+		}
+
+		if (doFunnyMove)
+		{
+			doFunnyMove = false;
+			finishedFunnyMove = false;
+			new FlxTimer().start(0.2, function(tmr:FlxTimer)
+			{
+				finishedFunnyMove = true;
+			});
 		}
 
 		super.update(elapsed);

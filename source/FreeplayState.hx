@@ -31,9 +31,8 @@ class FreeplayState extends MusicBeatState
 	var curSelected:Int = 0;
 	var curDifficulty:Int = FlxG.save.data.difficulty;
 
-	var informationText:FlxTypedGroup<Skebeep>;
-	var informationTextLine1:Skebeep;
-	var informationTextLine2:Skebeep;
+	var songText:Skebeep;
+	var informationText:Skebeep;
 
 	var icon:String = "";
 	var lerpScore:Int = 0;
@@ -143,7 +142,7 @@ class FreeplayState extends MusicBeatState
 
 		for (i in 0...songs.length)
 		{
-			var songText:Skebeep = new Skebeep();
+			songText = new Skebeep();
 			songText.color = FlxColor.BLACK;
 			songText.text = songs[i].songName.replace(" ", ";");
 			songText.isMenuItem = true;
@@ -158,26 +157,14 @@ class FreeplayState extends MusicBeatState
 			// songText.screenCenter(X);
 		}
 
-		informationText = new FlxTypedGroup<Skebeep>();
+		informationText = new Skebeep(3);
+		informationText.color = FlxColor.BLACK;
+		informationText.screenCenter(X);
+		informationText.y = 400;
+		informationText.scale.set(2, 2);
+		informationText.updateHitbox();
+		informationText.scrollFactor.set();
 		add(informationText);
-
-		informationTextLine1 = new Skebeep(3);
-		informationTextLine1.color = FlxColor.BLACK;
-		informationTextLine1.screenCenter(X);
-		informationTextLine1.y = 400;
-		informationTextLine1.scale.set(2, 2);
-		informationTextLine1.updateHitbox();
-		informationTextLine1.scrollFactor.set();
-		informationText.add(informationTextLine1);
-
-		informationTextLine2 = new Skebeep(3);
-		informationTextLine2.color = FlxColor.BLACK;
-		informationTextLine2.screenCenter(X);
-		informationTextLine2.y = informationTextLine1.y + 20;
-		informationTextLine2.scale.set(2, 2);
-		informationTextLine2.updateHitbox();
-		informationTextLine2.scrollFactor.set();
-		informationText.add(informationTextLine2);
 
 		changeSelection();
 		changeDiff();
@@ -247,11 +234,11 @@ class FreeplayState extends MusicBeatState
 		if (Math.abs(lerpScore - intendedScore) <= 10)
 			lerpScore = intendedScore;
 
-		informationTextLine1.text = 'Score: $lerpScore ${CoolUtil.difficultyFromInt(curDifficulty).toUpperCase()} $combo';
-		informationTextLine1.screenCenter(X);
+		if (songText.finishedFunnyMove)
+			informationText.visible = true;
 
-		informationTextLine2.text = 'Opponent: $icon';
-		informationTextLine2.screenCenter(X);
+		informationText.text = 'Score: $lerpScore ${CoolUtil.difficultyFromInt(curDifficulty).toUpperCase()} $combo\nOpponent: $icon';
+		informationText.screenCenter(X);
 
 		if (!mouse && FlxG.mouse.justMoved || FlxG.mouse.justPressed || FlxG.mouse.justPressedMiddle || FlxG.mouse.justPressedRight || FlxG.mouse.wheel != 0)
 		{
@@ -374,12 +361,9 @@ class FreeplayState extends MusicBeatState
 
 	function changeSelection(change:Int = 0)
 	{
-		#if !switch
-		// NGio.logEvent('Fresh');
-		#end
-
-		// NGio.logEvent('Fresh');
 		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+		songText.doFunnyMove = true;
+		informationText.visible = false;
 
 		curSelected += change;
 
