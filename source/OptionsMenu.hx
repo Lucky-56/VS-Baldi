@@ -29,6 +29,16 @@ class OptionsMenu extends MusicBeatState
 	var curSelected:Int = 0;
 
 	var options:Array<OptionCategory> = [
+		new OptionCategory("Appearance", [
+			new Fullscreen("Toggle Fullscreen."),
+			new DistractionsAndEffectsOption("Toggle stage distractions that can hinder your gameplay."),
+			new CamZoomOption("Toggle the camera zoom in-game."),
+			new AccuracyOption("Display accuracy information."),
+			new NPSDisplayOption("Shows your current Notes Per Second."),
+			new HealthDisplayOption("Shows your current Health."),
+			new SongPositionOption("Show the songs current position (as a bar)"),
+			new CpuStrums("CPU's strumline lights up when a note hits it.")
+		]),
 		new OptionCategory("Gameplay", [
 			new DFJKOption(controls),
 			new DownscrollOption("Change the layout of the strumline."),
@@ -39,48 +49,30 @@ class OptionsMenu extends MusicBeatState
 			#end
 			new AccuracyDOption("Change how accuracy is calculated. (Accurate = Simple, Complex = Milisecond Based)"),
 			new ResetButtonOption("Toggle pressing R to gameover."),
-			// new OffsetMenu("Get a note offset based off of your inputs!"),
 			new CustomizeGameplay("Drag'n'Drop Gameplay Modules around to your preference")
 		]),
-		new OptionCategory("Appearance", [
-			new Fullscreen("Toggle Fullscreen."),
-			new DistractionsAndEffectsOption("Toggle stage distractions that can hinder your gameplay."),
-			new CamZoomOption("Toggle the camera zoom in-game."),
-			#if desktop
-			new RainbowFPSOption("Make the FPS Counter Rainbow"),
-			new AccuracyOption("Display accuracy information."),
-			new NPSDisplayOption("Shows your current Notes Per Second."),
-			new HealthDisplayOption("Shows your current Health."),
-			new SongPositionOption("Show the songs current position (as a bar)"),
-			new CpuStrums("CPU's strumline lights up when a note hits it."),
-			#end
-		]),
-		
 		new OptionCategory("Misc", [
 			#if desktop
-			new FPSOption("Toggle the FPS Counter"),
 			new ReplayOption("View replays"),
 			#end
+			new FPSOption("Toggle the FPS Counter"),
+			new RainbowFPSOption("Make the FPS Counter Rainbow"),
 			new FlashingLightsOption("Toggle flashing lights that can cause epileptic seizures and strain."),
 			new ShowInput("Display every single input in the score screen."),
 			new Optimization("No backgrounds, no characters, centered notes, no player 2."),
 			new BotPlay("Showcase your charts and mods with autoplay."),
 			new ScoreScreen("Show the score screen after the end of a song")
 		]),
-		
 		#if !final
-		new OptionCategory("Sound Test", [
-			new RandomGoodSound("Get a Random Good Sound."),
-			new RandomBadSound("Get a Random Bad Sound.")
+		new OptionCategory("Debug", [
+			new OffsetMenu("Get a note offset based off of your inputs!")
 		]),
 		#end
-		
 		new OptionCategory("Manage Save Data", [
 			new ResetScoreOption("Reset your score on all songs and weeks."),
 			new LockWeeksOption("Reset your storymode progress. (only Tutorial + Week 1 will be unlocked)"),
 			new ResetSettings("Reset ALL your settings.")
 		])
-		
 	];
 
 	public var acceptInput:Bool = true;
@@ -94,6 +86,16 @@ class OptionsMenu extends MusicBeatState
 	override function create()
 	{
 		FlxG.sound.playMusic(Paths.music('TheSideEffectsOfSchool'));
+
+		if (FlxG.save.data.secret)
+		{
+			var secretSoundTest:OptionCategory = new OptionCategory("Sound Test", [
+				new RandomGoodSound("Get a Random Good Sound."),
+				new RandomBadSound("Get a Random Bad Sound.")
+			]);
+
+			options.insert(3, secretSoundTest);
+		}
 
 		instance = this;
 		var menuBG:FlxBackdrop = new FlxBackdrop(Paths.image("wall"));
