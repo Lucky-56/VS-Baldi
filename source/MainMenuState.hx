@@ -174,7 +174,7 @@ class MainMenuState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			if (FlxG.mouse.justMoved || FlxG.mouse.justPressed || FlxG.mouse.justPressedMiddle || FlxG.mouse.justPressedRight || FlxG.mouse.wheel != 0)
+			if (!mouse && FlxG.mouse.justMoved || FlxG.mouse.justPressed || FlxG.mouse.justPressedMiddle || FlxG.mouse.justPressedRight || FlxG.mouse.wheel != 0)
 			{
 				switchToMouse();
 			}
@@ -185,13 +185,15 @@ class MainMenuState extends MusicBeatState
 			{
 				if (gamepad.justPressed.DPAD_UP)
 				{
-					switchFromMouse();
+					if (mouse)
+						switchFromMouse();
 					FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 					changeItem(-1);
 				}
 				if (gamepad.justPressed.DPAD_DOWN)
 				{
-					switchFromMouse();
+					if (mouse)
+						switchFromMouse();
 					FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 					changeItem(1);
 				}
@@ -199,21 +201,24 @@ class MainMenuState extends MusicBeatState
 
 			if (FlxG.keys.justPressed.UP)
 			{
-				switchFromMouse();
+				if (mouse)
+					switchFromMouse();
 				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 				changeItem(-1);
 			}
 
 			if (FlxG.keys.justPressed.DOWN)
 			{
-				switchFromMouse();
+				if (mouse)
+					switchFromMouse();
 				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 				changeItem(1);
 			}
 
 			if (controls.ACCEPT)
 			{
-				switchFromMouse();
+				if (mouse)
+					switchFromMouse();
 
 				menuItems.forEach(function(spr:FlxSprite)
 				{
@@ -276,23 +281,20 @@ class MainMenuState extends MusicBeatState
 
 	function switchFromMouse()
 	{
-		changeItem();
-		FlxG.mouse.visible = false;
 		mouse = false;
+		FlxG.mouse.visible = false;
+		changeItem();
 	}
 	
 	function switchToMouse()
 	{
-		FlxG.mouse.visible = true;
-		if(!mouse)
-		{
-			menuItems.forEach(function(spr:FlxSprite)
-			{
-				spr.animation.play('idle');
-				spr.updateHitbox();
-			});
-		}
 		mouse = true;
+		FlxG.mouse.visible = true;
+		menuItems.forEach(function(spr:FlxSprite)
+		{
+			spr.animation.play('idle');
+			spr.updateHitbox();
+		});
 	}
 
 	function onMouseOver(spr:FlxSprite)

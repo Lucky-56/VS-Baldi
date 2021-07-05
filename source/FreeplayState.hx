@@ -253,7 +253,7 @@ class FreeplayState extends MusicBeatState
 		informationTextLine2.text = 'Opponent: $icon';
 		informationTextLine2.screenCenter(X);
 
-		if (FlxG.mouse.justMoved || FlxG.mouse.justPressed || FlxG.mouse.justPressedMiddle || FlxG.mouse.justPressedRight || FlxG.mouse.wheel != 0)
+		if (!mouse && FlxG.mouse.justMoved || FlxG.mouse.justPressed || FlxG.mouse.justPressedMiddle || FlxG.mouse.justPressedRight || FlxG.mouse.wheel != 0)
 		{
 			switchToMouse();
 		}
@@ -264,51 +264,60 @@ class FreeplayState extends MusicBeatState
 		{
 			if (gamepad.justPressed.DPAD_UP)
 			{
-				switchFromMouse();
+				if (mouse)
+					switchFromMouse();
 				changeSelection(-1);
 			}
 			if (gamepad.justPressed.DPAD_DOWN)
 			{
-				switchFromMouse();
+				if (mouse)
+					switchFromMouse();
 				changeSelection(1);
 			}
 			if (gamepad.justPressed.DPAD_LEFT)
 			{
-				switchFromMouse();
+				if (mouse)
+					switchFromMouse();
 				changeDiff(-1);
 			}
 			if (gamepad.justPressed.DPAD_RIGHT)
 			{
-				switchFromMouse();
+				if (mouse)
+					switchFromMouse();
 				changeDiff(1);
 			}
 		}
 
 		if (FlxG.keys.justPressed.UP)
 		{
-			switchFromMouse();
+			if (mouse)
+				switchFromMouse();
 			changeSelection(-1);
 		}
 		if (FlxG.keys.justPressed.DOWN)
 		{
-			switchFromMouse();
+			if (mouse)
+				switchFromMouse();
 			changeSelection(1);
 		}
 
 		if (FlxG.keys.justPressed.LEFT)
 		{
-			switchFromMouse();
+			if (mouse)
+				switchFromMouse();
 			changeDiff(-1);
 		}
 		if (FlxG.keys.justPressed.RIGHT)
 		{
-			switchFromMouse();
+			if (mouse)
+				switchFromMouse();
 			changeDiff(1);
 		}
 
 		if (controls.BACK)
 		{
-			switchFromMouse();
+			if (mouse)
+				switchFromMouse();
 			backButton.animation.play('selected');
 			FlxG.sound.music.stop();
 			FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -317,22 +326,23 @@ class FreeplayState extends MusicBeatState
 
 		if (controls.ACCEPT)
 		{
-			switchFromMouse();
+			if (mouse)
+				switchFromMouse();
 			startSong();
 		}
 
-		if(mouse)
+		if (mouse)
 		{
-			if(FlxG.mouse.justPressed && !backSel)
+			if (FlxG.mouse.justPressed && !backSel)
 				startSong();
 
-			if(FlxG.mouse.justPressedRight)
+			if (FlxG.mouse.justPressedRight)
 				changeDiff(1);
 
-			if(FlxG.mouse.wheel > 0)
+			if (FlxG.mouse.wheel > 0)
 				changeSelection(-1);
 
-			if(FlxG.mouse.wheel < 0)
+			if (FlxG.mouse.wheel < 0)
 				changeSelection(1);
 		}
 	}

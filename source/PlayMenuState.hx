@@ -181,35 +181,39 @@ class PlayMenuState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			if (FlxG.mouse.justMoved || FlxG.mouse.justPressed || FlxG.mouse.justPressedMiddle || FlxG.mouse.justPressedRight || FlxG.mouse.wheel != 0)
-				{
-					switchToMouse();
-				}
-	
+			if (!mouse && FlxG.mouse.justMoved || FlxG.mouse.justPressed || FlxG.mouse.justPressedMiddle || FlxG.mouse.justPressedRight || FlxG.mouse.wheel != 0)
+			{
+				switchToMouse();
+			}
+
 			if (controls.UP_P)
 			{
-				switchFromMouse();
+				if (mouse)
+					switchFromMouse();
 				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 				changeItem(-1);
 			}
 
 			if (controls.DOWN_P)
 			{
-				switchFromMouse();
+				if (mouse)
+					switchFromMouse();
 				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 				changeItem(1);
 			}
 
 			if (controls.BACK)
 			{
-				switchFromMouse();
+				if (mouse)
+					switchFromMouse();
 				backButton.animation.play('selected');
 				menuButton(2);
 			}
 
 			if (controls.ACCEPT)
 			{
-				switchFromMouse();
+				if (mouse)
+					switchFromMouse();
 
 				menuItems.forEach(function(grp:FlxTypedSpriteGroup<FlxSprite>)
 				{
@@ -278,27 +282,26 @@ class PlayMenuState extends MusicBeatState
 
 	function switchFromMouse()
 	{
-		changeItem();
-		FlxG.mouse.visible = false;
 		mouse = false;
+		FlxG.mouse.visible = false;
+		changeItem();
 	}
 	
 	function switchToMouse()
 	{
-		FlxG.mouse.visible = true;
-		if(!mouse)
-		{
-			menuItems.forEach(function(grp:FlxTypedSpriteGroup<FlxSprite>)
-			{
-				grp.forEachOfType(FlxSprite, function(spr:FlxSprite){
-					spr.animation.play('idle');
-				});
-				grp.forEachOfType(Skebeep, function(txt:Skebeep){
-					txt.font = comicSans;
-				});
-			});
-		}
 		mouse = true;
+		FlxG.mouse.visible = true;
+		menuItems.forEach(function(grp:FlxTypedSpriteGroup<FlxSprite>)
+		{
+			grp.forEachOfType(FlxSprite, function(spr:FlxSprite)
+			{
+				spr.animation.play('idle');
+			});
+			grp.forEachOfType(Skebeep, function(txt:Skebeep)
+			{
+				txt.font = comicSans;
+			});
+		});
 	}
 
 	function onMouseOver(spr:FlxSprite)
