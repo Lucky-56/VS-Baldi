@@ -775,6 +775,28 @@ class ResetSettings extends Option
 	}
 }
 
+class Fullscreen extends Option
+{
+	var confirm:Bool = false;
+
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		FlxG.fullscreen = !FlxG.fullscreen;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Fullscreen";
+	}
+}
+
 class RandomGoodSound extends Option
 {
 	var confirm:Bool = false;
@@ -796,7 +818,7 @@ class RandomGoodSound extends Option
 		return "Random Good Sound";
 	}
 }
-
+	
 class RandomBadSound extends Option
 {
 	var confirm:Bool = false;

@@ -31,6 +31,7 @@ class FreeplayState extends MusicBeatState
 	var curSelected:Int = 0;
 	var curDifficulty:Int = FlxG.save.data.difficulty;
 
+	var backButton:FlxSprite;
 	var songText:Skebeep;
 	var informationText:Skebeep;
 
@@ -40,7 +41,6 @@ class FreeplayState extends MusicBeatState
 	var combo:String = '';
 
 	private var grpSongs:FlxTypedGroup<Skebeep>;
-	private var backButton:FlxSprite;
 	private var curPlaying:Bool = false;
 
 	public static var songData:Map<String,Array<SwagSong>> = [];
@@ -342,9 +342,6 @@ class FreeplayState extends MusicBeatState
 			curDifficulty = 3;
 		if (curDifficulty > 3)
 			curDifficulty = 0;
-
-		FlxG.save.data.difficulty = curDifficulty;
-		FlxG.save.flush();
 
 		// adjusting the highscore song name to be compatible (changeDiff)
 		var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");
