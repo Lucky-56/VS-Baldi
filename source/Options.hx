@@ -119,6 +119,52 @@ class CpuStrums extends Option
 
 }
 
+class GraphicLoading extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.cacheImages = !FlxG.save.data.cacheImages;
+		
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return  FlxG.save.data.cacheImages ? "Preload Characters" : "Do not Preload Characters";
+	}
+
+}
+
+class EditorRes extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.editorBG = !FlxG.save.data.editorBG;
+		
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return  FlxG.save.data.editorBG ? "Show Editor Grid" : "Do not Show Editor Grid";
+	}
+
+}
+
 class DownscrollOption extends Option
 {
 	public function new(desc:String)
@@ -221,6 +267,46 @@ class DistractionsAndEffectsOption extends Option
 	}
 }
 
+class Colour extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		FlxG.save.data.colour = !FlxG.save.data.colour;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Color Health Bar By Character " + (!FlxG.save.data.colour ? "off" : "on");
+	}
+}
+
+class StepManiaOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		FlxG.save.data.stepMania = !FlxG.save.data.stepMania;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Colors by quantization " + (!FlxG.save.data.stepMania ? "off" : "on");
+	}
+}
+
 class ResetButtonOption extends Option
 {
 	public function new(desc:String)
@@ -241,6 +327,27 @@ class ResetButtonOption extends Option
 	}
 }
 
+class InstantRespawn extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.save.data.InstantRespawn = !FlxG.save.data.InstantRespawn;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Instant Respawn " + (!FlxG.save.data.InstantRespawn ? "off" : "on");
+	}
+}
+
 class FlashingLightsOption extends Option
 {
 	public function new(desc:String)
@@ -258,6 +365,46 @@ class FlashingLightsOption extends Option
 	private override function updateDisplay():String
 	{
 		return "Flashing Lights " + (!FlxG.save.data.flashing ? "off" : "on");
+	}
+}
+
+class AntialiasingOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		FlxG.save.data.antialiasing = !FlxG.save.data.antialiasing;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Antialiasing " + (!FlxG.save.data.antialiasing ? "off" : "on");
+	}
+}
+
+class MissSoundsOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	public override function press():Bool
+	{
+		FlxG.save.data.missSounds = !FlxG.save.data.missSounds;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Miss Sounds " + (!FlxG.save.data.missSounds ? "off" : "on");
 	}
 }
 
@@ -737,36 +884,41 @@ class ResetSettings extends Option
 			display = updateDisplay();
 			return true;
 		}
-		FlxG.save.data.accuracyDisplay = null;
-		FlxG.save.data.accuracyMod = null;
-		FlxG.save.data.botplay = null;
-		FlxG.save.data.camzoom = null;
-		FlxG.save.data.changedHit = null;
-		FlxG.save.data.cpuStrums = null;
-		FlxG.save.data.customStrumLine = null;
-		FlxG.save.data.dfjk = null;
-		FlxG.save.data.difficulty = null;
-		FlxG.save.data.distractions = null;
-		FlxG.save.data.downscroll = null;
-		FlxG.save.data.flashing = null;
-		FlxG.save.data.fps = null;
-		FlxG.save.data.fpsCap = null;
-		FlxG.save.data.fpsRain = null;
-		FlxG.save.data.frames = null;
-		FlxG.save.data.ghost = null;
-		FlxG.save.data.healthDisplay = null;
-		FlxG.save.data.inputShow = null;
-		FlxG.save.data.newInput = null;
-		FlxG.save.data.npsDisplay = null;
-		FlxG.save.data.offset = null;
-		FlxG.save.data.optimize = null;
-		FlxG.save.data.resetButton = null;
-		FlxG.save.data.scoreScreen = null;
-		FlxG.save.data.secret = null;
-		FlxG.save.data.songPosition = null;
-		FlxG.save.data.strumline = null;
-		FlxG.save.data.watermark = null;
 		FlxG.save.data.weekUnlocked = null;
+		FlxG.save.data.newInput = null;
+		FlxG.save.data.downscroll = null;
+		FlxG.save.data.antialiasing = null;
+		FlxG.save.data.missSounds = null;
+		FlxG.save.data.dfjk = null;
+		FlxG.save.data.accuracyDisplay = null;
+		FlxG.save.data.offset = null;
+		FlxG.save.data.songPosition = null;
+		FlxG.save.data.fps = null;
+		FlxG.save.data.changedHit = null;
+		FlxG.save.data.fpsRain = null;
+		FlxG.save.data.fpsCap = null;
+		FlxG.save.data.scrollSpeed = null;
+		FlxG.save.data.npsDisplay = null;
+		FlxG.save.data.frames = null;
+		FlxG.save.data.accuracyMod = null;
+		FlxG.save.data.watermark = null;
+		FlxG.save.data.ghost = null;
+		FlxG.save.data.distractions = null;
+		FlxG.save.data.colour = null;
+		FlxG.save.data.stepMania = null;
+		FlxG.save.data.flashing = null;
+		FlxG.save.data.resetButton = null;
+		FlxG.save.data.botplay = null;
+		FlxG.save.data.cpuStrums = null;
+		FlxG.save.data.strumline = null;
+		FlxG.save.data.customStrumLine = null;
+		FlxG.save.data.camzoom = null;
+		FlxG.save.data.scoreScreen = null;
+		FlxG.save.data.inputShow = null;
+		FlxG.save.data.optimize = null;
+		FlxG.save.data.cacheImages = null;
+		FlxG.save.data.editor = null;
+
 		KadeEngineData.initSave();
 		confirm = false;
 		trace('All settings have been reset');

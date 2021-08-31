@@ -14,7 +14,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.net.curl.CURLCode;
 
-#if windows
+#if desktop
 import Discord.DiscordClient;
 #end
 
@@ -66,7 +66,14 @@ class StoryMenuState extends MusicBeatState
 
 	function unlockWeeks():Array<Bool>
 	{
-		var weeks:Array<Bool> = [true];
+		var weeks:Array<Bool> = [];
+		#if debug
+		for(i in 0...weekNames.length)
+			weeks.push(true);
+		return weeks;
+		#end
+		
+		weeks.push(true);
 
 		for(i in 0...FlxG.save.data.weekUnlocked)
 			{
@@ -79,7 +86,7 @@ class StoryMenuState extends MusicBeatState
 	{
 		weekUnlocked = unlockWeeks();
 
-		#if windows
+		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Story Mode Menu", null);
 		#end
@@ -90,7 +97,10 @@ class StoryMenuState extends MusicBeatState
 		if (FlxG.sound.music != null)
 		{
 			if (!FlxG.sound.music.playing)
+			{
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				Conductor.changeBPM(102);
+			}
 		}
 
 		persistentUpdate = persistentDraw = true;
@@ -114,13 +124,13 @@ class StoryMenuState extends MusicBeatState
 		grpWeekText = new FlxTypedGroup<MenuItem>();
 		add(grpWeekText);
 
+		grpLocks = new FlxTypedGroup<FlxSprite>();
+		add(grpLocks);
+
 		var blackBarThingie:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, 56, FlxColor.BLACK);
 		add(blackBarThingie);
 
 		grpWeekCharacters = new FlxTypedGroup<MenuCharacter>();
-
-		grpLocks = new FlxTypedGroup<FlxSprite>();
-		add(grpLocks);
 
 		trace("Line 70");
 
@@ -132,7 +142,7 @@ class StoryMenuState extends MusicBeatState
 			grpWeekText.add(weekThing);
 
 			weekThing.screenCenter(X);
-			weekThing.antialiasing = true;
+			weekThing.antialiasing = FlxG.save.data.antialiasing;
 			// weekThing.updateHitbox();
 
 			// Needs an offset thingie
@@ -144,7 +154,7 @@ class StoryMenuState extends MusicBeatState
 				lock.animation.addByPrefix('lock', 'lock');
 				lock.animation.play('lock');
 				lock.ID = i;
-				lock.antialiasing = true;
+				lock.antialiasing = FlxG.save.data.antialiasing;
 				grpLocks.add(lock);
 			}
 		}
@@ -300,6 +310,9 @@ class StoryMenuState extends MusicBeatState
 			FlxG.switchState(new PlayMenuState());
 		}
 
+		if (FlxG.sound.music != null)
+			Conductor.songPosition = FlxG.sound.music.time;
+
 		super.update(elapsed);
 	}
 
@@ -340,7 +353,7 @@ class StoryMenuState extends MusicBeatState
 			PlayState.shits = 0;
 			PlayState.goods = 0;
 			PlayState.campaignMisses = 0;
-			PlayState.SONG = Song.loadFromJson(poop, PlayState.storyPlaylist[0]);
+			PlayState.SONG = Song.conversionChecks(Song.loadFromJson(poop, PlayState.storyPlaylist[0]));
 			PlayState.storyWeek = curWeek;
 			PlayState.campaignScore = 0;
 			new FlxTimer().start(1, function(tmr:FlxTimer)
@@ -453,5 +466,22 @@ class StoryMenuState extends MusicBeatState
 
 		FlxG.save.data.weekUnlocked = weekUnlocked.length - 1;
 		FlxG.save.flush();
+	}
+
+	override function beatHit()
+	{
+		super.beatHit();
+
+		if (curBeat % 2 == 0)
+		{
+			grpWeekCharacters.members[0].bopHead();
+			grpWeekCharacters.members[1].bopHead();
+		}
+		else if (weekCharacters[curWeek][0] == 'spooky' || weekCharacters[curWeek][0] == 'gf')
+			grpWeekCharacters.members[0].bopHead();
+
+		if (weekCharacters[curWeek][2] == 'spooky' || weekCharacters[curWeek][2] == 'gf')
+			grpWeekCharacters.members[2].bopHead();
+
 	}
 }
